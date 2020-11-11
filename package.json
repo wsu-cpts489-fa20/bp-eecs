@@ -1,12 +1,14 @@
 {
-  "name": "code-ch18-eb",
+  "name": "bp-eecs",
   "version": "1.0.0",
-  "description": "Testing instructions for deployment to EB",
-  "main": "server.compiled.js",
+  "description": "An app for browsing EECS course requirements",
+  "main": "build/main.js",
   "scripts": {
-    "start": "node server.compiled.js",
-    "build": "babel server.js --out-file server.compiled.js",
-    "dev": "nodemon --exec node server.compiled.js",
+    "start": "node build/main.js",
+    "build": "babel src/ --out-dir build/",
+    "serve": "nodemon --exec babel-node src/main.js",
+    "serve-client": "npm run start --prefix client/",
+    "dev": "env NODE_ENV=development concurrently \"npm run serve\" \"npm run serve-client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "C Hundhausen",
@@ -16,7 +18,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongoose": "^5.10.9",
+    "mongoose": "^5.10.13",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
@@ -25,9 +27,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.1",
-    "@babel/node": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.6",
     "@babel/preset-env": "^7.12.1",
-    "nodemon": "^2.0.5"
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
   }
 }

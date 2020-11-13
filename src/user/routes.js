@@ -1,4 +1,5 @@
 import express from 'express'
+import {User} from './schema'
 
 const router = express.Router();
 

@@ -15,10 +15,10 @@ import router from "./router";
 mongoose.connect(MONGO_STR, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(
         () => {
-            console.log(`Connected to ${connectStr}.`)
+            console.log(`Connected to ${MONGO_STR}.`)
         },
         err => {
-            console.error(`Error connecting to ${connectStr}: ${err}`)
+            console.error(`Error connecting to ${MONGO_STR}: ${err}`)
         }
     );
 

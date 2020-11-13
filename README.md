@@ -18,5 +18,5 @@ $EDITOR .env
 ```
 You may swap `$EDITOR` for the text editor of your choice. Fill in the values.
 
-The app is presently set be served to http://localhost:8081 through the command
-npm run dev. You'll need to update DEPLOY_URL in main.js for remote deployment.
+The app is presently set be served to http://localhost:8080 through the command
+`npm run dev`. You'll need to update `PUBLIC_URL` in `.env` to change this.

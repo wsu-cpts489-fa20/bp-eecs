@@ -37,7 +37,7 @@ handleLoginSubmit = async (event) => {
     event.preventDefault();
     this.setState({loginBtnIcon: "fa fa-spin fa-spinner",
                    loginBtnLabel: "Logging In..."});
-    const url = "auth/login?username=" + this.emailInputRef.current.value +
+    const url = "/auth/login?username=" + this.emailInputRef.current.value +
                 "&password=" + this.passwordInputRef.current.value;
     const res = await fetch(url, {method: 'POST'}); 
     if (res.status == 200) { //successful login!

@@ -9,10 +9,7 @@ const MONGO_STR = process.env.MONGO_STR;
 const GH_CLIENT_ID = process.env.GH_CLIENT_ID;
 const GH_CLIENT_SECRET = process.env.GH_CLIENT_SECRET;
 
-let CLIENT_PATH = path.join(__dirname, '..', 'client');
-if (process.env.NODE_ENV === 'production') {
-    CLIENT_PATH = path.join(__dirname, '..', 'client', 'build');
-}
+const CLIENT_PATH = path.join(__dirname, '..', 'client', 'build');
 
 
 // Check that options are set, and provide a more helpful error message if they're not.

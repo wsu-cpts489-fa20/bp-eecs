@@ -6,21 +6,22 @@
     "runtime-main.js": "/static/js/runtime-main.0d575dc6.js",
     "runtime-main.js.map": "/static/js/runtime-main.0d575dc6.js.map",
     "static/css/2.d653346d.chunk.css": "/static/css/2.d653346d.chunk.css",
-    "static/js/2.928e17f6.chunk.js": "/static/js/2.928e17f6.chunk.js",
-    "static/js/2.928e17f6.chunk.js.map": "/static/js/2.928e17f6.chunk.js.map",
+    "static/js/2.09dfdb8a.chunk.js": "/static/js/2.09dfdb8a.chunk.js",
+    "static/js/2.09dfdb8a.chunk.js.map": "/static/js/2.09dfdb8a.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6811a456ab75c4bd49af7cf309a7e532.js": "/precache-manifest.6811a456ab75c4bd49af7cf309a7e532.js",
+    "precache-manifest.fdbaa916229d25d6c6186b0061c7dc7e.js": "/precache-manifest.fdbaa916229d25d6c6186b0061c7dc7e.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.d653346d.chunk.css.map": "/static/css/2.d653346d.chunk.css.map",
-    "static/css/main.183daf3d.chunk.css.map": "/static/css/main.183daf3d.chunk.css.map",
-    "static/js/2.928e17f6.chunk.js.LICENSE.txt": "/static/js/2.928e17f6.chunk.js.LICENSE.txt",
+    "static/css/main.6a8397fb.chunk.css.map": "/static/css/main.6a8397fb.chunk.css.map",
+    "static/js/2.09dfdb8a.chunk.js.LICENSE.txt": "/static/js/2.09dfdb8a.chunk.js.LICENSE.txt",
+    "static/media/WSU-logo.png": "/static/media/WSU-logo.d4057e66.png",
     "static/media/font-awesome.min.css": "/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.0d575dc6.js",
     "static/css/2.d653346d.chunk.css",
-    "static/js/2.928e17f6.chunk.js",
-    "static/css/main.183daf3d.chunk.css",
-    "static/js/main.4d5f741e.chunk.js"
+    "static/js/2.09dfdb8a.chunk.js",
+    "static/css/main.6a8397fb.chunk.css",
+    "static/js/main.8c6ea49d.chunk.js"
   ]
 }

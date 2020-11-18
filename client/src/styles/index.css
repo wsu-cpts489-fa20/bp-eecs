@@ -280,10 +280,15 @@ height: 10%;
 font-size: 24px;
 }
 
-.login-btn {
+/* .login-btn {
 width: 70%;
 font-size: 36px;
-}
+} */
+
+.login-btn {
+  width: 10%;
+  font-size: 18px;
+  }
 
 /* Form styling */
 

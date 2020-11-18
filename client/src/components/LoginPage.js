@@ -15,7 +15,8 @@ constructor() {
     this.resetA = "";
     this.passwordInputRef = React.createRef();
     this.state = {statusMsg: "",
-                  loginBtnIcon: "fa fa-sign-in",
+                  //loginBtnIcon: "fa fa-sign-in",
+                  loginBtnIcon: "",
                   loginBtnLabel: "Sign In",
                   showLookUpAccountDialog: false,
                   showSecurityQuestionDialog: false,
@@ -44,7 +45,7 @@ handleLoginSubmit = async (event) => {
         window.open("/","_self");
     } else { //Unsuccessful login
       const resText = await res.text();
-      this.setState({loginBtnIcon: "fa fa-sign-in",
+      this.setState({//loginBtnIcon: "fa fa-sign-in",
                      loginBtnLabel: "Log In",
                      statusMsg: resText});
     }
@@ -171,9 +172,11 @@ cancelCreateAccount = () => {
                                    resetPassword={this.resetPassword} /> : null}
 
             <p></p>
+            <p>SIGN IN</p>
             <form id="loginInterface" onSubmit={this.handleLoginSubmit}>
-            <label htmlFor="emailInput" style={{ padding: 0, fontSize: 24 }}>
-                Email:
+
+            <label htmlFor="emailInput" style={{ padding: 0, fontSize: 18 }}>
+                Account email
                 <input
                 ref={this.emailInputRef}
                 className="form-control login-text"
@@ -185,8 +188,9 @@ cancelCreateAccount = () => {
                 />
             </label>
             <p />
-            <label htmlFor="passwordInput" style={{ padding: 0, fontSize: 24 }}>
-                Password:
+
+            <label htmlFor="passwordInput" style={{ padding: 0, fontSize: 18 }}>
+                Password
                 <input
                 ref={this.passwordInputRef}
                 className="form-control login-text"
@@ -196,6 +200,14 @@ cancelCreateAccount = () => {
                 required={true}
                 />
             </label>
+            <div>
+                <input type="radio" value="Student" name="role" required checked  /> Student
+                <span>&nbsp;&nbsp;</span>
+                <input type="radio" value="Admin" name="role" /> Admin
+            </div>
+
+
+
             <p className="bg-danger" id="feedback" style={{ fontSize: 16 }} />
             <button
                 type="submit"
@@ -204,6 +216,8 @@ cancelCreateAccount = () => {
                 &nbsp;{this.state.loginBtnLabel}
             </button>
             <p>
+
+
             <button type="button" className="btn btn-link login-link" 
                     onClick={() => {this.setState({showCreateAccountDialog: true});}}>
                 Create an account</button> | 

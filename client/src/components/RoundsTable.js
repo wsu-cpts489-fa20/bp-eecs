@@ -46,19 +46,10 @@ class RoundsTable extends React.Component {
   for (let r = 0; r < this.props.rounds.length; ++r) {
     table.push(
       <tr key={r}>
-        <td>{this.props.rounds[r].date.substring(0,10)}</td>
-        <td>{this.props.rounds[r].course}</td>
-        <td>{(Number(this.props.rounds[r].strokes) + 
-              Number(this.props.rounds[r].minutes)) +
-              ":" + (this.props.rounds[r].seconds < 10 ?  
-                "0" + this.props.rounds[r].seconds :
-                this.props.rounds[r].seconds) + " (" + 
-              this.props.rounds[r].strokes + 
-              " in " + this.props.rounds[r].minutes + ":" + 
-              (this.props.rounds[r].seconds < 10 ?  
-                "0" + this.props.rounds[r].seconds :
-                this.props.rounds[r].seconds) + ")"}
-        </td>
+        <td>{this.props.rounds[r].courseId}</td>
+        <td>{this.props.rounds[r].courseName}</td>
+        <td>{this.props.rounds[r].preReqs}</td>
+        <td>{this.props.rounds[r].description}</td>
         <td><button onClick={this.props.menuOpen ? null : () => 
           this.editRound(r)}>
               <span className="fa fa-eye"></span></button></td>
@@ -72,7 +63,7 @@ class RoundsTable extends React.Component {
   }
 
   //render--render the entire rounds table with header, displaying a "No
-  //Rounds Logged" message in case the table is empty.
+  //Courses Logged" message in case the table is empty.
   render() {
     return(
     <div className="padded-page">
@@ -80,9 +71,10 @@ class RoundsTable extends React.Component {
       <table className="table table-hover">
         <thead className="thead-light">
         <tr>
-          <th>Date</th>
-          <th>Course</th>
-          <th>Score</th>
+          <th>Course ID</th>
+          <th>Course Name</th>
+          <th>Prerequisites</th>
+          <th>Description</th>
           <th>View/Edit...</th>
           <th>Delete</th>
         </tr>
@@ -90,7 +82,7 @@ class RoundsTable extends React.Component {
         <tbody>
           {Object.keys(this.props.rounds).length === 0 ? 
           <tr>
-          <td colSpan="5" style={{fontStyle: "italic"}}>No rounds logged</td>
+          <td colSpan="5" style={{fontStyle: "italic"}}>No courses logged</td>
           </tr> : this.renderTable()
           }
         </tbody>

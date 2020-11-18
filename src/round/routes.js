@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express from 'express';
+import {User} from './../user/schema';
 
 const router = express.Router();
 

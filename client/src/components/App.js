@@ -11,7 +11,7 @@ import CoursesPage from './CoursesPage.js';
 import AboutBox from './AboutBox.js';
 
 const modeTitle = {};
-modeTitle[AppMode.LOGIN] = "EECS Course Scheduler";
+modeTitle[AppMode.LOGIN] = "";
 modeTitle[AppMode.FEED] = "Activity Feed";
 modeTitle[AppMode.ROUNDS] = "My Rounds";
 modeTitle[AppMode.ROUNDS_LOGROUND] = "Log New Round";

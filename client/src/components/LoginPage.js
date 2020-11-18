@@ -16,7 +16,7 @@ constructor() {
     this.passwordInputRef = React.createRef();
     this.state = {statusMsg: "",
                   loginBtnIcon: "fa fa-sign-in",
-                  loginBtnLabel: "Log In",
+                  loginBtnLabel: "Sign In",
                   showLookUpAccountDialog: false,
                   showSecurityQuestionDialog: false,
                   showResetPaswordDialog: false,
@@ -169,6 +169,8 @@ cancelCreateAccount = () => {
             {this.state.showResetPaswordDialog ? 
               <ResetPasswordDialog cancelResetPassword={this.cancelResetPassword}
                                    resetPassword={this.resetPassword} /> : null}
+
+            <p></p>
             <form id="loginInterface" onSubmit={this.handleLoginSubmit}>
             <label htmlFor="emailInput" style={{ padding: 0, fontSize: 24 }}>
                 Email:

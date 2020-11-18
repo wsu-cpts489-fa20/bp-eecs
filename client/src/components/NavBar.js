@@ -4,7 +4,7 @@ import AppMode from '../AppMode';
 class NavBar extends React.Component {
 
   getMenuBtnIcon = () => {
-      if (this.props.mode === AppMode.ROUNDS_LOGROUND || 
+      if (this.props.mode === AppMode.ROUNDS_LOGROUND ||
           this.props.mode === AppMode.ROUNDS_EDITROUND)
           return "fa fa-arrow-left";
       if (this.props.menuOpen)

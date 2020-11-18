@@ -1,5 +1,5 @@
 import React from 'react';
-import AppMode from './../AppMode.js';
+import AppMode from '../AppMode.js';
 
 class RoundForm extends React.Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class RoundForm extends React.Component {
     handleSubmit = (event) => {
         //start spinner
         this.setState({faIcon: "fa fa-spin fa-spinner",
-                        btnLabel: (this.props.mode === AppMode.ROUNDS_LOGROUND ? 
+                        btnLabel: (this.props.mode === AppMode.ROUNDS_LOGROUND ?
                                     "Saving..." : "Updating...")});
         //Prepare current round data to be saved
         let roundData = this.state;

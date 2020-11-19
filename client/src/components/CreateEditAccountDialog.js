@@ -134,6 +134,7 @@ class CreateEditAccountDialog extends React.Component {
         let userData = {
             displayName: this.state.displayName,
             password: this.state.password,
+            admin: false,
             profilePicURL: this.state.profilePicURL,
             securityQuestion: this.state.securityQuestion,
             securityAnswer: this.state.securityAnswer

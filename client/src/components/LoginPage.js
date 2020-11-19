@@ -4,6 +4,9 @@ import ResetPasswordDialog from './ResetPasswordDialog.js';
 import LookUpAccountDialog from './LookUpAccountDialog.js';
 import SecurityQuestionDialog from './SecurityQuestionDialog.js';
 
+import Background from '../images/WSU-background.jpg';
+
+
 class LoginPage extends React.Component {
 
 constructor() {
@@ -153,7 +156,14 @@ cancelCreateAccount = () => {
 
   render() {
     return(
-        <div>
+        <div
+        // style={{
+        //     background: `url(${Background})`,
+        //     backgroundRepeat  : 'no-repeat',
+        //     backgroundPosition: 'center',
+        //     backgroundSize: 'cover',
+        //   }}
+        >
         <center>
         {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                        <button className="modal-close" onClick={this.closeStatusMsg}>
@@ -172,7 +182,10 @@ cancelCreateAccount = () => {
                                    resetPassword={this.resetPassword} /> : null}
 
             <p></p>
-            <p>SIGN IN</p>
+            <div className = "loginTitle">
+            EECS Course Scheduler
+            </div>
+            <p></p>
             <form id="loginInterface" onSubmit={this.handleLoginSubmit}>
 
             <label htmlFor="emailInput" style={{ padding: 0, fontSize: 18 }}>

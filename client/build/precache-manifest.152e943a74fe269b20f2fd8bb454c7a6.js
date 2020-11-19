@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e9f33ce7fa3c4f7a794e2c44404af7fc",
+    "revision": "81d2ddfa5d3cc29407965bcf3c519161",
     "url": "/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.00b6ad22.chunk.css"
   },
   {
-    "revision": "a3868352b2bfbfdf9542",
-    "url": "/static/css/main.a5faad50.chunk.css"
+    "revision": "5edcc592207fe96446b6",
+    "url": "/static/css/main.1eac6578.chunk.css"
   },
   {
     "revision": "e5adc6b76da92233fe92",
@@ -20,12 +20,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.cf649e87.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a3868352b2bfbfdf9542",
-    "url": "/static/js/main.902a5096.chunk.js"
+    "revision": "5edcc592207fe96446b6",
+    "url": "/static/js/main.19d1cc2a.chunk.js"
   },
   {
     "revision": "19793d9fa96413d1c44d",
     "url": "/static/js/runtime-main.0d575dc6.js"
+  },
+  {
+    "revision": "d56d53717be404f1844d655f8cbd0c94",
+    "url": "/static/media/WSU-background.d56d5371.jpg"
   },
   {
     "revision": "d4057e66446217a85a54d5bc3ee450bc",

@@ -156,14 +156,7 @@ cancelCreateAccount = () => {
 
   render() {
     return(
-        <div
-        // style={{
-        //     background: `url(${Background})`,
-        //     backgroundRepeat  : 'no-repeat',
-        //     backgroundPosition: 'center',
-        //     backgroundSize: 'cover',
-        //   }}
-        >
+        <div >
         <center>
         {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                        <button className="modal-close" onClick={this.closeStatusMsg}>

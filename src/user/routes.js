@@ -28,6 +28,7 @@ router.post('/:userId', async (req, res, next) => {
         " and body = " + JSON.stringify(req.body));
     if (req.body === undefined ||
         !req.body.hasOwnProperty("password") ||
+        !req.body.hasOwnProperty("admin") ||
         !req.body.hasOwnProperty("displayName") ||
         !req.body.hasOwnProperty("profilePicURL") ||
         !req.body.hasOwnProperty("securityQuestion") ||
@@ -46,6 +47,7 @@ router.post('/:userId', async (req, res, next) => {
                 id: req.params.userId,
                 password: req.body.password,
                 displayName: req.body.displayName,
+                admin: req.body.admin,
                 authStrategy: 'local',
                 profilePicURL: req.body.profilePicURL,
                 securityQuestion: req.body.securityQuestion,

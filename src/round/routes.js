@@ -8,17 +8,13 @@ router.post('/:userId', async (req, res, next) => {
     console.log("in /rounds (POST) route with params = " +
         JSON.stringify(req.params) + " and body = " +
         JSON.stringify(req.body));
-    if (!req.body.hasOwnProperty("date") ||
-        !req.body.hasOwnProperty("course") ||
-        !req.body.hasOwnProperty("type") ||
-        !req.body.hasOwnProperty("holes") ||
-        !req.body.hasOwnProperty("strokes") ||
-        !req.body.hasOwnProperty("minutes") ||
-        !req.body.hasOwnProperty("seconds") ||
-        !req.body.hasOwnProperty("notes")) {
+    if (!req.body.hasOwnProperty("courseId") ||
+        !req.body.hasOwnProperty("courseName") ||
+        !req.body.hasOwnProperty("description") ||
+        !req.body.hasOwnProperty("prerequisites")) {
         //Body does not contain correct properties
         return res.status(400).send("POST request on /rounds formulated incorrectly." +
-            "Body must contain all 8 required fields: date, course, type, holes, strokes, " + "minutes, seconds, notes.");
+            "Body must contain all 4 required fields: course id, course name, description, and prerequisites");
     }
     try {
         let status = await User.updateOne(
@@ -61,17 +57,16 @@ router.put('/:userId/:roundId', async (req, res, next) => {
     console.log("in /rounds (PUT) route with params = " +
         JSON.stringify(req.params) + " and body = " +
         JSON.stringify(req.body));
-    const validProps = ['date', 'course', 'type', 'holes', 'strokes',
-        'minutes', 'seconds', 'notes'];
+    const validProps = ['courseId', 'courseName', 'description', 'prerequisites'];
     let bodyObj = {...req.body};
     delete bodyObj._id; //Not needed for update
     delete bodyObj.SGS; //We'll compute this below in seconds.
+    console.log("bodyObj =", bodyObj);
     for (const bodyProp in bodyObj) {
         if (!validProps.includes(bodyProp)) {
             return res.status(400).send("rounds/ PUT request formulated incorrectly." +
                 "It includes " + bodyProp + ". However, only the following props are allowed: " +
-                "'date', 'course', 'type', 'holes', 'strokes', " +
-                "'minutes', 'seconds', 'notes'");
+                "'course id', 'course name', 'description', and 'prerequisites'");
         } else {
             bodyObj["rounds.$." + bodyProp] = bodyObj[bodyProp];
             delete bodyObj[bodyProp];

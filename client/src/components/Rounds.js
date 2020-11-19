@@ -136,11 +136,6 @@ class Rounds extends React.Component {
                 );
             case AppMode.ROUNDS_EDITROUND:
                 let thisRound = {...this.props.userObj.rounds[this.editId]};
-                thisRound.date = thisRound.date.substr(0,10);
-                if (thisRound.seconds < 10) {
-                    thisRound.seconds = "0" + thisRound.seconds;
-                } 
-                delete thisRound.SGS;
                 return (
                     <RoundForm
                         mode={this.props.mode}

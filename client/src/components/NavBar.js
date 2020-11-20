@@ -1,39 +1,61 @@
 import React from 'react';
-import AppMode from '../AppMode';
+import Switch from "react-router-dom/es/Switch";
+import Route from "react-router-dom/es/Route";
+import Link from "react-router-dom/modules/Link";
 
 class NavBar extends React.Component {
-
-    getMenuBtnIcon = () => {
-        if (this.props.mode === AppMode.ROUNDS_LOGROUND ||
-            this.props.mode === AppMode.ROUNDS_EDITROUND)
-            return "fa fa-arrow-left";
-        if (this.props.menuOpen)
-            return "fa fa-times";
-        return "fa fa-bars";
-    }
-
-    handleMenuBtnClick = () => {
-        if (this.props.mode === AppMode.ROUNDS_LOGROUND ||
-            this.props.mode === AppMode.ROUNDS_EDITROUND) {
-            this.props.changeMode(AppMode.ROUNDS);
-        } else if (this.props.mode != AppMode.LOGIN) {
-            this.props.toggleMenuOpen();
-        }
-    }
-
-
     render() {
         return (
             <div className="navbar">
                 <span className="navbar-items">
                     <Switch>
-                        <button className="sidemenu-btn" onClick={this.handleMenuBtnClick}>
-                            <span id="menuBtnIcon" className={"sidemenu-btn-icon " + this.getMenuBtnIcon()}/>
-                        </button>
+
+                        <Route path="/rounds/add">
+                            <Link to="/rounds" className="sidemenu-btn">
+                                <span id="menuBtnIcon" className={"sidemenu-btn-icon fa fa-arrow-left"}/>
+                            </Link>
+                        </Route>
+                        <Route path="/rounds/edit">
+                            <Link to="/rounds" className="sidemenu-btn">
+                                <span id="menuBtnIcon" className={"sidemenu-btn-icon fa fa-arrow-left"}/>
+                            </Link>
+                        </Route>
+                        <Route path="/login"/>
+                        <Route path="/">
+                            <button className="sidemenu-btn" onClick={() => this.props.toggleMenuOpen()}>
+                                <span
+                                    id="menuBtnIcon"
+                                    className={`sidemenu-btn-icon fa ${this.props.menuOpen ? "fa-times" : "fa-bars"}`}
+                                />
+                            </button>
+                        </Route>
+
                     </Switch>
-                    <img src={require('../images/WSU-logo.png')} alt="WSU Logo" height="38px"
-                         width="38px"/>
-                    <span className="navbar-title">&nbsp;{this.props.title}</span>
+                    <img src={require('../images/WSU-logo.png')} alt="WSU Logo" height="38px" width="38px"/>
+                    <span className="navbar-title">
+                        <Switch>
+
+                            <Route path="/login">
+                                EECS Course Scheduler
+                            </Route>
+                            <Route path="/feed">
+                                Activity Feed
+                            </Route>
+                            <Route path="/rounds/add">
+                                Log New Round
+                            </Route>
+                            <Route path="/rounds/edit">
+                                Edit Round
+                            </Route>
+                            <Route exact path="/rounds">
+                                My Rounds
+                            </Route>
+                            <Route path="/courses">
+                                Courses
+                            </Route>
+
+                        </Switch>
+                    </span>
                 </span>
             </div>
         );

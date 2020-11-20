@@ -169,13 +169,6 @@ class App extends React.Component {
                             </Switch>
                         </Route>
                     </Switch>
-
-                    {/*<ModePage*/}
-                    {/*    menuOpen={this.state.menuOpen}*/}
-                    {/*    mode={this.state.mode}*/}
-                    {/*    changeMode={this.handleChangeMode}*/}
-                    {/*    userObj={this.state.userObj}*/}
-                    {/*    refreshOnUpdate={this.refreshOnUpdate}/>*/}
                 </div>
             </Router>
         );

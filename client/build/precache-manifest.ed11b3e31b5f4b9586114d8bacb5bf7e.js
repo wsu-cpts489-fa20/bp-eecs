@@ -1,31 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9cf242d16bc5c954ff1f3f95234faba1",
+    "revision": "bf1e5995ebe9afbd914a41271da20565",
     "url": "/index.html"
   },
   {
-    "revision": "c290ce3856890b64de8a",
+    "revision": "4c117282193c28d10db9",
     "url": "/static/css/2.00b6ad22.chunk.css"
   },
   {
-    "revision": "b37aafc5cd1b865b0a8c",
-    "url": "/static/css/main.3ebac3b2.chunk.css"
+    "revision": "a1c1bb778bf2e83ad44f",
+    "url": "/static/css/main.c2838487.chunk.css"
   },
   {
-    "revision": "c290ce3856890b64de8a",
-    "url": "/static/js/2.efd1b4d2.chunk.js"
+    "revision": "4c117282193c28d10db9",
+    "url": "/static/js/2.5f4cd6cb.chunk.js"
   },
   {
     "revision": "0d08bb566150086a6317785a01bb3007",
-    "url": "/static/js/2.efd1b4d2.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.5f4cd6cb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b37aafc5cd1b865b0a8c",
-    "url": "/static/js/main.07787ca0.chunk.js"
+    "revision": "a1c1bb778bf2e83ad44f",
+    "url": "/static/js/main.10613ee7.chunk.js"
   },
   {
     "revision": "19793d9fa96413d1c44d",
     "url": "/static/js/runtime-main.0d575dc6.js"
+  },
+  {
+    "revision": "d56d53717be404f1844d655f8cbd0c94",
+    "url": "/static/media/WSU-background.d56d5371.jpg"
   },
   {
     "revision": "d4057e66446217a85a54d5bc3ee450bc",

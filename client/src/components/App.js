@@ -9,7 +9,7 @@ import FeedPage from './FeedPage.js';
 import Rounds from './Rounds.js';
 import CoursesPage from './CoursesPage.js';
 import AboutBox from './AboutBox.js';
-import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import Majors from "../Majors";
 
 
@@ -32,20 +32,24 @@ class App extends React.Component {
     //componentDidMount
     componentDidMount() {
         if (!this.state.authenticated) {
-            //Use /auth/test route to (re)-test authentication and obtain user data
-            fetch("/auth/test")
-                .then((response) => response.json())
-                .then((obj) => {
-                        if (obj.isAuthenticated) {
-                            this.setState({
-                                userObj: obj.user,
-                                authenticated: true,
-                                mode: AppMode.FEED //We're authenticated so can get into the app.
-                            });
-                        }
-                    }
-                )
+            this.testAuth()
         }
+    }
+
+    testAuth = () => {
+        //Use /auth/test route to (re)-test authentication and obtain user data
+        fetch("/auth/test")
+            .then((response) => response.json())
+            .then((obj) => {
+                    if (obj.isAuthenticated) {
+                        this.setState({
+                            userObj: obj.user,
+                            authenticated: true,
+                            mode: AppMode.FEED //We're authenticated so can get into the app.
+                        });
+                    }
+                }
+            )
     }
 
     //refreshOnUpdate(newMode) -- Called by child components when user data changes in
@@ -149,7 +153,9 @@ class App extends React.Component {
 
                     <Switch>
                         <Route path="/login">
-                            <LoginPage/>
+                            <LoginPage
+                                testAuth={this.testAuth}
+                                authenticated={this.state.authenticated}/>
                         </Route>
                         <Route path="/">
                             <ModeBar

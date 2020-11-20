@@ -3,6 +3,7 @@ import CreateEditAccountDialog from './CreateEditAccountDialog.js';
 import ResetPasswordDialog from './ResetPasswordDialog.js';
 import LookUpAccountDialog from './LookUpAccountDialog.js';
 import SecurityQuestionDialog from './SecurityQuestionDialog.js';
+import {Redirect} from "react-router-dom";
 
 class LoginPage extends React.Component {
     constructor() {
@@ -42,8 +43,8 @@ class LoginPage extends React.Component {
         const url = "/auth/login?username=" + this.emailInputRef.current.value +
             "&password=" + this.passwordInputRef.current.value;
         const res = await fetch(url, {method: 'POST'});
-        if (res.status == 200) { //successful login!
-            window.open("/", "_self");
+        if (res.status === 200) { //successful login!
+            this.props.testAuth()
         } else { //Unsuccessful login
             const resText = await res.text();
             this.setState({//loginBtnIcon: "fa fa-sign-in",
@@ -172,6 +173,7 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
+                {this.props.authenticated ? <Redirect to="/"/> : null}
                 <center>
                     {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                         <button className="modal-close" onClick={this.closeStatusMsg}>

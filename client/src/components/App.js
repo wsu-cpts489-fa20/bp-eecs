@@ -30,150 +30,161 @@ modeToPage[AppMode.COURSES] = CoursesPage;
 
 class App extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {mode: AppMode.LOGIN,
-                  menuOpen: false,
-                  authenticated: false,
-                  userObj: {displayName: "", profilePicURL: ""},
-                  editAccount: false,
-                  showEditAccountDialog: false,
-                  statusMsg: "",
-                  showAboutDialog: false
-                 };
-  }
+    constructor() {
+        super();
+        this.state = {
+            mode: AppMode.LOGIN,
+            menuOpen: false,
+            authenticated: false,
+            userObj: {displayName: "", profilePicURL: ""},
+            editAccount: false,
+            showEditAccountDialog: false,
+            statusMsg: "",
+            showAboutDialog: false
+        };
+    }
 
-  //componentDidMount
-  componentDidMount() {
-    if (!this.state.authenticated) { 
-      //Use /auth/test route to (re)-test authentication and obtain user data
-      fetch("/auth/test")
-        .then((response) => response.json())
-        .then((obj) => {
-          if (obj.isAuthenticated) {
-            this.setState({
-              userObj: obj.user,
-              authenticated: true,
-              mode: AppMode.FEED //We're authenticated so can get into the app.
-            });
-          }
+    //componentDidMount
+    componentDidMount() {
+        if (!this.state.authenticated) {
+            //Use /auth/test route to (re)-test authentication and obtain user data
+            fetch("/auth/test")
+                .then((response) => response.json())
+                .then((obj) => {
+                        if (obj.isAuthenticated) {
+                            this.setState({
+                                userObj: obj.user,
+                                authenticated: true,
+                                mode: AppMode.FEED //We're authenticated so can get into the app.
+                            });
+                        }
+                    }
+                )
         }
-      )
-    } 
-  }
+    }
 
-  //refreshOnUpdate(newMode) -- Called by child components when user data changes in 
-  //the database. The function calls the users/:userid (GET) route to update 
-  //the userObj state var based on the latest database changes, and sets the 
-  //mode state var is set to newMode. After this method is called, the
-  //App will re-render itself, forcing the new data to 
-  //propagate to the child components when they are re-rendered.
-  refreshOnUpdate = async(newMode) => {
-    let response = await fetch("/users/" + this.state.userObj.id);
-    response = await response.json();
-    const obj = JSON.parse(response);
-    this.setState({
-      userObj: obj,
-      mode: newMode
-    });
-  }
+    //refreshOnUpdate(newMode) -- Called by child components when user data changes in
+    //the database. The function calls the users/:userid (GET) route to update
+    //the userObj state var based on the latest database changes, and sets the
+    //mode state var is set to newMode. After this method is called, the
+    //App will re-render itself, forcing the new data to
+    //propagate to the child components when they are re-rendered.
+    refreshOnUpdate = async (newMode) => {
+        let response = await fetch("/users/" + this.state.userObj.id);
+        response = await response.json();
+        const obj = JSON.parse(response);
+        this.setState({
+            userObj: obj,
+            mode: newMode
+        });
+    }
 
 
-  handleChangeMode = (newMode) => {
-    this.setState({mode: newMode});
-  }
+    handleChangeMode = (newMode) => {
+        this.setState({mode: newMode});
+    }
 
-  openMenu = () => {
-    this.setState({menuOpen : true});
-  }
-  
-  closeMenu = () => {
-    this.setState({menuOpen : false});
-  }
+    openMenu = () => {
+        this.setState({menuOpen: true});
+    }
 
-  toggleMenuOpen = () => {
-    this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
-  }
+    closeMenu = () => {
+        this.setState({menuOpen: false});
+    }
 
-  setUserId = (Id) => {
-    this.setState({userId: Id,
-                   authenticated: true});
-  }
+    toggleMenuOpen = () => {
+        this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
+    }
 
-  showEditAccount = () => {
-    this.setState({showEditAccountDialog: true});
+    setUserId = (Id) => {
+        this.setState({
+            userId: Id,
+            authenticated: true
+        });
+    }
 
-  }
+    showEditAccount = () => {
+        this.setState({showEditAccountDialog: true});
 
-  cancelEditAccount = () => {
-    this.setState({showEditAccountDialog: false});
-  }
+    }
 
-  //editAccountDone -- called after successful edit or
-  //deletion of user account. msg contains the status
-  //message and deleted indicates whether an account was
-  //edited (deleted == false) or deleted (deleted == true)
-  editAccountDone = (msg, deleted) => {
-    if (deleted) {
-      this.setState({showEditAccountDialog: false,
-                     statusMsg: msg,
-                     mode: AppMode.LOGIN});
-      } else {
-        this.setState({showEditAccountDialog: false,
-          statusMsg: msg});
-      }
-  }
+    cancelEditAccount = () => {
+        this.setState({showEditAccountDialog: false});
+    }
 
-  closeStatusMsg = () => {
-    this.setState({statusMsg: ""});
-  }
+    //editAccountDone -- called after successful edit or
+    //deletion of user account. msg contains the status
+    //message and deleted indicates whether an account was
+    //edited (deleted == false) or deleted (deleted == true)
+    editAccountDone = (msg, deleted) => {
+        if (deleted) {
+            this.setState({
+                showEditAccountDialog: false,
+                statusMsg: msg,
+                mode: AppMode.LOGIN
+            });
+        } else {
+            this.setState({
+                showEditAccountDialog: false,
+                statusMsg: msg
+            });
+        }
+    }
 
-  render() {
-    const ModePage = modeToPage[this.state.mode];
-    return (
-        <Router>
-      <div className="padded-page">
-        {this.state.showAboutDialog ? 
-          <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
-        {this.state.statusMsg != "" ? <div className="status-msg">
-              <span>{this.state.statusMsg}</span>
-              <button className="modal-close" onClick={this.closeStatusMsg}>
-                  <span className="fa fa-times"></span></button></div> : null}
-        {this.state.showEditAccountDialog ? 
-            <CreateEditAccountDialog 
-              create={false} 
-              userId={this.state.userObj.id} 
-              done={this.editAccountDone} 
-              cancel={this.cancelEditAccount}/> : null}
-        <NavBar 
-          title={modeTitle[this.state.mode]} 
-          mode={this.state.mode}
-          changeMode={this.handleChangeMode}
-          menuOpen={this.state.menuOpen}
-          toggleMenuOpen={this.toggleMenuOpen}/>
-          <SideMenu 
-            menuOpen = {this.state.menuOpen}
-            mode={this.state.mode}
-            toggleMenuOpen={this.toggleMenuOpen}
-            displayName={this.state.userObj.displayName}
-            profilePicURL={this.state.userObj.profilePicURL}
-            localAccount={this.state.userObj.authStrategy === "local"}
-            editAccount={this.showEditAccount}
-            logOut={() => this.handleChangeMode(AppMode.LOGIN)}
-            showAbout={() => {this.setState({showAboutDialog: true})}}/>
-          <ModeBar 
-            mode={this.state.mode} 
-            changeMode={this.handleChangeMode}
-            menuOpen={this.state.menuOpen}/>
-          <ModePage 
-            menuOpen={this.state.menuOpen}
-            mode={this.state.mode}
-            changeMode={this.handleChangeMode}
-            userObj={this.state.userObj}
-            refreshOnUpdate={this.refreshOnUpdate}/>
-      </div>
-    );  
-  }
+    closeStatusMsg = () => {
+        this.setState({statusMsg: ""});
+    }
+
+    render() {
+        const ModePage = modeToPage[this.state.mode];
+        return (
+            <Router>
+                <div className="padded-page">
+                    {this.state.showAboutDialog ?
+                        <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
+                    {this.state.statusMsg != "" ? <div className="status-msg">
+                        <span>{this.state.statusMsg}</span>
+                        <button className="modal-close" onClick={this.closeStatusMsg}>
+                            <span className="fa fa-times"></span></button>
+                    </div> : null}
+                    {this.state.showEditAccountDialog ?
+                        <CreateEditAccountDialog
+                            create={false}
+                            userId={this.state.userObj.id}
+                            done={this.editAccountDone}
+                            cancel={this.cancelEditAccount}/> : null}
+                    <NavBar
+                        title={modeTitle[this.state.mode]}
+                        mode={this.state.mode}
+                        changeMode={this.handleChangeMode}
+                        menuOpen={this.state.menuOpen}
+                        toggleMenuOpen={this.toggleMenuOpen}/>
+                    <SideMenu
+                        menuOpen={this.state.menuOpen}
+                        mode={this.state.mode}
+                        toggleMenuOpen={this.toggleMenuOpen}
+                        displayName={this.state.userObj.displayName}
+                        profilePicURL={this.state.userObj.profilePicURL}
+                        localAccount={this.state.userObj.authStrategy === "local"}
+                        editAccount={this.showEditAccount}
+                        logOut={() => this.handleChangeMode(AppMode.LOGIN)}
+                        showAbout={() => {
+                            this.setState({showAboutDialog: true})
+                        }}/>
+                    <ModeBar
+                        mode={this.state.mode}
+                        changeMode={this.handleChangeMode}
+                        menuOpen={this.state.menuOpen}/>
+                    <ModePage
+                        menuOpen={this.state.menuOpen}
+                        mode={this.state.mode}
+                        changeMode={this.handleChangeMode}
+                        userObj={this.state.userObj}
+                        refreshOnUpdate={this.refreshOnUpdate}/>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

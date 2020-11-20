@@ -4,7 +4,6 @@ import SideMenu from './SideMenu.js';
 import ModeBar from './ModeBar.js';
 import CreateEditAccountDialog from './CreateEditAccountDialog.js'
 import LoginPage from './LoginPage.js';
-import AppMode from "../AppMode.js"
 import FeedPage from './FeedPage.js';
 import Rounds from './Rounds.js';
 import CoursesPage from './CoursesPage.js';
@@ -18,7 +17,6 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            mode: AppMode.LOGIN,
             menuOpen: false,
             authenticated: false,
             userObj: {displayName: "", profilePicURL: ""},
@@ -44,8 +42,7 @@ class App extends React.Component {
                     if (obj.isAuthenticated) {
                         this.setState({
                             userObj: obj.user,
-                            authenticated: true,
-                            mode: AppMode.FEED //We're authenticated so can get into the app.
+                            authenticated: true
                         });
                     }
                 }
@@ -96,8 +93,7 @@ class App extends React.Component {
         if (deleted) {
             this.setState({
                 showEditAccountDialog: false,
-                statusMsg: msg,
-                mode: AppMode.LOGIN
+                statusMsg: msg
             });
         } else {
             this.setState({

@@ -1,5 +1,4 @@
 import React from 'react';
-import AppMode from '../AppMode.js';
 
 class LookUpAccountDialog extends React.Component {
 

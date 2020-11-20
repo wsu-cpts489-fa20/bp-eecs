@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfirmDeleteRound from './ConfirmDeleteRound.js';
-import AppMode from './../AppMode.js';
+import AppMode from '../AppMode.js';
+import {Link} from "react-router-dom";
 
 class RoundsTable extends React.Component {
 
@@ -50,9 +51,8 @@ class RoundsTable extends React.Component {
         <td>{this.props.rounds[r].courseName}</td>
         <td>{this.props.rounds[r].description}</td>
         <td>{this.props.rounds[r].prerequisites}</td>
-        <td><button onClick={this.props.menuOpen ? null : () => 
-          this.editRound(r)}>
-              <span className="fa fa-eye"></span></button></td>
+        <td><Link to={`/rounds/edit/${r}`}>
+              <span className="fa fa-eye"></span></Link></td>
         <td><button onClick={this.props.menuOpen ? null : 
           () => this.confirmDelete(r)}>
               <span className="fa fa-trash"></span></button></td>

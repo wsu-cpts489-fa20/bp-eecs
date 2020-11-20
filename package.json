@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node build/main.js",
     "build": "babel src/ --out-dir build/",
-    "serve": "nodemon --exec babel-node src/main.js",
+    "serve": "nodemon --ignore client --exec babel-node src/main.js",
     "serve-client": "npm run start --prefix client/",
     "dev": "env NODE_ENV=development concurrently \"npm run serve\" \"npm run serve-client\"",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -3,19 +3,23 @@
 //appropriate rounds mode page based on App's mode, which is passed in as a prop.
 
 import React from 'react';
-import AppMode from './../AppMode.js';
+import AppMode from '../AppMode.js';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js';
+import {Link, Route, Switch} from "react-router-dom";
 
 class Rounds extends React.Component {
 
     //Initialize a Rounds object based on local storage
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.deleteId = "";
         this.editId = "";
-        this.state = {errorMsg: ""};           
+        this.state = {
+            errorMsg: "",
+            roundFormRedirect: null
+        };
     }
 
     //addRound -- Given an object newData containing a new round, use the 
@@ -30,9 +34,10 @@ class Rounds extends React.Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                },
+            },
             method: 'POST',
-            body: JSON.stringify(newData)}); 
+            body: JSON.stringify(newData)
+        });
         const msg = await res.text();
         if (res.status != 200) {
             this.setState({errorMsg: msg});
@@ -48,17 +53,17 @@ class Rounds extends React.Component {
     //toggle the mode back to AppMode.ROUNDS since the user is done editing the
     //round. 
     editRound = async (newData) => {
-        const url = '/rounds/' + this.props.userObj.id + '/' + 
-            this.props.userObj.rounds[this.editId]._id;
+        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[this.editId]._id}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                },
+            },
             method: 'PUT',
-            body: JSON.stringify(newData)}); 
+            body: JSON.stringify(newData)
+        });
         const msg = await res.text();
-        if (res.status != 200) {
+        if (res.status !== 200) {
             this.setState({errorMsg: msg});
             this.props.changeMode(AppMode.ROUNDS);
         } else {
@@ -70,19 +75,21 @@ class Rounds extends React.Component {
     //deleteRound -- Delete the current user's round uniquely identified by
     //this.state.deleteId, delete from the database, and reset deleteId to empty.
     deleteRound = async () => {
-        const url = '/rounds/' + this.props.userObj.id + '/' + 
+        const url = '/rounds/' + this.props.userObj.id + '/' +
             this.props.userObj.rounds[this.deleteId]._id;
-        const res = await fetch(url, {method: 'DELETE'}); 
+        const res = await fetch(url, {method: 'DELETE'});
         const msg = await res.text();
         if (res.status != 200) {
-            this.setState({errorMsg: "An error occurred when attempting to delete round from database: " 
-            + msg});
+            this.setState({
+                errorMsg: "An error occurred when attempting to delete round from database: "
+                    + msg
+            });
             this.props.changeMode(AppMode.ROUNDS);
         } else {
             this.props.refreshOnUpdate(AppMode.ROUNDS);
-        }  
+        }
     }
- 
+
     //setDeleteId -- Capture in this.state.deleteId the unique id of the item
     //the user is considering deleting.
     setDeleteId = (val) => {
@@ -100,51 +107,46 @@ class Rounds extends React.Component {
     closeErrorMsg = () => {
         this.setState({errorMsg: ""});
     }
-    
+
     //render -- Conditionally render the Rounds mode page as either the rounds
     //table, the rounds form set to obtain a new round, or the rounds form set
     //to edit an existing round.
     render() {
-        switch(this.props.mode) {
-            case AppMode.ROUNDS:
-                return (
-                    <>
-                    {this.state.errorMsg != "" ? <div className="status-msg"><span>{this.state.errorMsg}</span>
-                       <button className="modal-close" onClick={this.closeErrorMsg}>
-                          <span className="fa fa-times"></span>
-                        </button></div>: null}
-                    <RoundsTable 
+        return (
+            <Switch>
+                <Route path="/rounds/add">
+                    <RoundForm
+                        saveRound={this.addRound}/>
+                </Route>
+                <Route path="/rounds/edit/:id">
+                    <RoundForm
+                        rounds={this.props.userObj.rounds}
+                        saveRound={this.editRound}/>
+                </Route>
+                <Route path="/rounds">
+                    {this.state.errorMsg !== ""
+                        ? <div className="status-msg">
+                            <span>{this.state.errorMsg}</span>
+                            <button className="modal-close" onClick={this.closeErrorMsg}>
+                                <span className="fa fa-times"/>
+                            </button>
+                        </div>
+                        : null}
+                    <RoundsTable
                         rounds={this.props.userObj.rounds}
                         setEditId={this.setEditId}
                         setDeleteId={this.setDeleteId}
                         deleteRound={this.deleteRound}
-                        changeMode={this.props.changeMode}
-                        menuOpen={this.props.menuOpen} /> 
-                    <FloatingButton
-                        handleClick={() => 
-                        this.props.changeMode(AppMode.ROUNDS_LOGROUND)}
-                        menuOpen={this.props.menuOpen}
-                        icon={"fa fa-plus"} />
-                    </>
-                );
-            case AppMode.ROUNDS_LOGROUND:
-                return (
-                    <RoundForm
-                        mode={this.props.mode}
-                        startData={""} 
-                        saveRound={this.addRound} />
-                );
-            case AppMode.ROUNDS_EDITROUND:
-                let thisRound = {...this.props.userObj.rounds[this.editId]};
-                return (
-                    <RoundForm
-                        mode={this.props.mode}
-                        startData={thisRound} 
-                        saveRound={this.editRound} />
-                );
-        }
+                        menuOpen={this.props.menuOpen}/>
+                    <Link to="/rounds/add">
+                        <FloatingButton
+                            menuOpen={this.props.menuOpen}
+                            icon={"fa fa-plus"}/>
+                    </Link>
+                </Route>
+            </Switch>
+        );
     }
-
-}   
+}
 
 export default Rounds;

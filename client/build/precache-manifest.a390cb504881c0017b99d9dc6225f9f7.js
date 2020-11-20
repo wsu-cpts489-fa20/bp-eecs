@@ -1,35 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "23c484809f0ad8915c6bb40ecb42bdae",
+    "revision": "4e01a1d5c3df9641dd9b985be5d35462",
     "url": "/index.html"
   },
   {
-    "revision": "754d45f4552ee8810de0",
+    "revision": "6b7fc3743015d1e47737",
     "url": "/static/css/2.00b6ad22.chunk.css"
   },
   {
-    "revision": "24834736690a48e3df0e",
+    "revision": "aeb9958b7641e99f57d0",
     "url": "/static/css/main.fa47eaae.chunk.css"
   },
   {
-    "revision": "754d45f4552ee8810de0",
-    "url": "/static/js/2.03250a76.chunk.js"
+    "revision": "6b7fc3743015d1e47737",
+    "url": "/static/js/2.4b8ed3d8.chunk.js"
   },
   {
     "revision": "0d08bb566150086a6317785a01bb3007",
-    "url": "/static/js/2.03250a76.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.4b8ed3d8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "24834736690a48e3df0e",
-    "url": "/static/js/main.064aa258.chunk.js"
+    "revision": "aeb9958b7641e99f57d0",
+    "url": "/static/js/main.02809964.chunk.js"
   },
   {
     "revision": "19793d9fa96413d1c44d",
     "url": "/static/js/runtime-main.0d575dc6.js"
-  },
-  {
-    "revision": "d4057e66446217a85a54d5bc3ee450bc",
-    "url": "/static/media/WSU-logo.d4057e66.png"
   },
   {
     "revision": "674f50d287a8c48dc19ba404d20fe713",

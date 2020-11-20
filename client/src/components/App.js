@@ -4,12 +4,9 @@ import SideMenu from './SideMenu.js';
 import ModeBar from './ModeBar.js';
 import CreateEditAccountDialog from './CreateEditAccountDialog.js'
 import LoginPage from './LoginPage.js';
-import AppMode from "../AppMode.js"
-import FeedPage from './FeedPage.js';
 import Rounds from './Rounds.js';
-import CoursesPage from './CoursesPage.js';
 import AboutBox from './AboutBox.js';
-import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import Majors from "../Majors";
 
 
@@ -18,7 +15,6 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            mode: AppMode.LOGIN,
             menuOpen: false,
             authenticated: false,
             userObj: {displayName: "", profilePicURL: ""},
@@ -44,8 +40,7 @@ class App extends React.Component {
                     if (obj.isAuthenticated) {
                         this.setState({
                             userObj: obj.user,
-                            authenticated: true,
-                            mode: AppMode.FEED //We're authenticated so can get into the app.
+                            authenticated: true
                         });
                     }
                 }
@@ -96,8 +91,7 @@ class App extends React.Component {
         if (deleted) {
             this.setState({
                 showEditAccountDialog: false,
-                statusMsg: msg,
-                mode: AppMode.LOGIN
+                statusMsg: msg
             });
         } else {
             this.setState({
@@ -120,9 +114,11 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router>
-                {!this.state.authenticated ? <Redirect to="/login"/> : null}
                 <div className="padded-page">
+                    {!this.state.authenticated
+                        ? <Redirect to="/login"/>
+                        : null
+                    }
                     {this.state.showAboutDialog ?
                         <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
                     {this.state.statusMsg != "" ? <div className="status-msg">
@@ -153,30 +149,28 @@ class App extends React.Component {
 
                     <Switch>
                         <Route path="/login">
-                            <LoginPage
-                                testAuth={this.testAuth}
-                                authenticated={this.state.authenticated}/>
+                            {this.state.authenticated ? <Redirect to="/"/> : null}
+                            <LoginPage testAuth={this.testAuth}/>
                         </Route>
-                        <Route path="/">
+                        <Route>
                             <ModeBar
                                 menuOpen={this.state.menuOpen}
                                 modes={Object.values(Majors)}
                             />
                             <Switch>
-                                <Route path="/feed">
-                                    <FeedPage/>
-                                </Route>
-                                <Route path="/rounds">
-                                    <Rounds/>
-                                </Route>
-                                <Route path="/courses">
-                                    <CoursesPage/>
-                                </Route>
+                                {Object.values(Majors).map((major) =>
+                                    <Route path={major.path}>
+                                        <Rounds
+                                            userObj={this.state.userObj}
+                                            refreshOnUpdate={this.refreshOnUpdate}
+                                            menuOpen={this.state.menuOpen}
+                                        />
+                                    </Route>
+                                )}
                             </Switch>
                         </Route>
                     </Switch>
                 </div>
-            </Router>
         );
     }
 }

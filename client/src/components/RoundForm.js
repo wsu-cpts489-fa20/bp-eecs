@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
 class RoundForm extends React.Component {
     constructor(props) {
@@ -71,7 +72,7 @@ class RoundForm extends React.Component {
         //start spinner
         this.setState({
             faIcon: "fa fa-spin fa-spinner",
-            btnLabel: (this.props.match.url === "/rounds/add" ?
+            btnLabel: (this.props.match.path.endsWith("add") ?
                 "Saving..." : "Updating...")
         });
         //Prepare current round data to be saved
@@ -80,6 +81,7 @@ class RoundForm extends React.Component {
         delete roundData.btnLabel;
         //call saveRound on 1 second delay to show spinning icon
         setTimeout(this.props.saveRound, 1000, roundData);
+
         event.preventDefault();
     }
 
@@ -130,4 +132,4 @@ class RoundForm extends React.Component {
     }
 }
 
-export default RoundForm;
+export default withRouter(RoundForm);

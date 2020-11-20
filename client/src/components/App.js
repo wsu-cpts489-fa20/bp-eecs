@@ -9,6 +9,7 @@ import FeedPage from './FeedPage.js';
 import Rounds from './Rounds.js';
 import CoursesPage from './CoursesPage.js';
 import AboutBox from './AboutBox.js';
+import {HashRouter as Router} from "react-router-dom";
 
 const modeTitle = {};
 modeTitle[AppMode.LOGIN] = "EECS Course Scheduler";
@@ -130,6 +131,7 @@ class App extends React.Component {
   render() {
     const ModePage = modeToPage[this.state.mode];
     return (
+        <Router>
       <div className="padded-page">
         {this.state.showAboutDialog ? 
           <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}

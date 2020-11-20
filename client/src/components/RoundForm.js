@@ -10,8 +10,11 @@ class RoundForm extends React.Component {
         //today's date.
         this.state = {
             date: today.toISOString().substr(0, 10),
-            course: "",
+            courseId: "",
+            courseName: "",
             type: "practice",
+            description: "",
+            prerequisites: "",
             holes: "18",
             strokes: 80,
             minutes: 50,
@@ -26,11 +29,6 @@ class RoundForm extends React.Component {
         const id = this.props.match.params.id;
         if (id) {
             const round = this.props.rounds[id];
-            round.date = round.date.substr(0, 10);
-            if (round.seconds < 10) {
-                round.seconds = "0" + round.seconds;
-            }
-            delete round.SGS;
             this.setState({
                 ...round,
                 faIcon: "fa fa-edit",
@@ -94,68 +92,36 @@ class RoundForm extends React.Component {
         return (
             <form className="padded-page" onSubmit={this.handleSubmit}>
                 <center>
+
                     <label>
-                        Date:
-                        <input name="date" className="form-control form-center"
-                               type="date" value={this.state.date} onChange={this.handleChange}/>
+                        Course Id:
+                        <input name="courseId" className="form-control form-center" type="text"
+                               value={this.state.courseId} onChange={this.handleChange}
+                               placeholder="cpts 489" size="50" maxLength="50"/>
                     </label>
                     <p></p>
                     <label>
-                        Course:
-                        <input name="course" className="form-control form-center" type="text"
-                               value={this.state.course} onChange={this.handleChange}
-                               placeholder="Course played" size="50" maxLength="50"/>
+                        Course Name:
+                        <input name="courseName" className="form-control form-center" type="text"
+                               value={this.state.courseName} onChange={this.handleChange}
+                               placeholder="Web development" size="50" maxLength="50"/>
                     </label>
                     <p></p>
-                    <label>Type:
-                        <select name="type" value={this.state.type}
-                                className="form-control form-center" onChange={this.handleChange}>
-                            <option value="practice">Practice</option>
-                            <option value="tournament">Tournament</option>
-                        </select>
+                    <label>Description of Course:
+                        <textarea name="description" className="form-control" rows="6" cols="75"
+                                  placeholder="Introduction to MERN Stack development" value={this.state.description}
+                                  onChange={this.handleChange}/>
                     </label>
                     <p></p>
-                    <label># Holes:
-                        <select name="holes" value={this.state.holes}
-                                className="form-control form-center" onChange={this.handleChange}>
-                            <option value="9">9</option>
-                            <option value="18">18</option>
-                        </select>
-                    </label>
-                    <p></p>
-                    <label># Strokes:
-                        <input name="strokes" className="form-control form-center" type="number"
-                               min="9" max="200" value={this.state.strokes}
-                               onChange={this.handleChange}/>
-                    </label>
-                    <p></p>
-                    <label>Time: <br></br>
-                        <input name="minutes" type="number" size="3"
-                               min="10" max="400" value={this.state.minutes}
-                               onChange={this.handleChange}/>:
-                        <input name="seconds" type="number" size="2"
-                               min="0" max="60" value={this.state.seconds}
-                               onChange={this.handleChange}/>
-                    </label>
-                    <p></p>
-                    <label>Speedgolf Score: <br></br>
-                        <input name="SGS" className="form-center" type="text" size="6"
-                               disabled={true}
-                               value={this.computeSGS(this.state.strokes, this.state.minutes, this.state.seconds)}/>
-                    </label>
-                    <p></p>
-                    <label>Notes:
-                        <textarea name="notes" className="form-control" rows="6" cols="75"
-                                  placeholder="Enter round notes" value={this.state.notes}
+                    <label>Prerequisites:
+                        <textarea name="prerequisites" className="form-control" rows="6" cols="75"
+                                  placeholder="350, 360, 311" value={this.state.prerequisites}
                                   onChange={this.handleChange}/>
                     </label>
                     <p></p>
                     <p></p>
-
-                    <button
-                        type="submit"
-                        style={{width: "70%", fontSize: "36px"}}
-                        className="btn btn-primary btn-color-theme">
+                    <button type="submit" style={{width: "70%", fontSize: "36px"}}
+                            className="btn btn-primary btn-color-theme">
                         <span className={this.state.faIcon}/>&nbsp;{this.state.btnLabel}
                     </button>
                 </center>

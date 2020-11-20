@@ -36,6 +36,11 @@ const local = new passportLocal.Strategy({passReqToCallback: true},
         try {
             thisUser = await User.findOne({id: userId});
             if (thisUser) {
+                //console.log("start");
+                //if (thisUser.admin === true)
+                //{
+                //    console.log("Admin");
+                //}
                 if (thisUser.password === password) {
                     return done(null, thisUser);
                 } else {

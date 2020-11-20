@@ -4,6 +4,9 @@ import ResetPasswordDialog from './ResetPasswordDialog.js';
 import LookUpAccountDialog from './LookUpAccountDialog.js';
 import SecurityQuestionDialog from './SecurityQuestionDialog.js';
 
+import Background from '../images/WSU-background.jpg';
+
+
 class LoginPage extends React.Component {
 
 constructor() {
@@ -15,8 +18,9 @@ constructor() {
     this.resetA = "";
     this.passwordInputRef = React.createRef();
     this.state = {statusMsg: "",
-                  loginBtnIcon: "fa fa-sign-in",
-                  loginBtnLabel: "Log In",
+                  //loginBtnIcon: "fa fa-sign-in",
+                  loginBtnIcon: "",
+                  loginBtnLabel: "Sign In",
                   showLookUpAccountDialog: false,
                   showSecurityQuestionDialog: false,
                   showResetPaswordDialog: false,
@@ -44,7 +48,7 @@ handleLoginSubmit = async (event) => {
         window.open("/","_self");
     } else { //Unsuccessful login
       const resText = await res.text();
-      this.setState({loginBtnIcon: "fa fa-sign-in",
+      this.setState({//loginBtnIcon: "fa fa-sign-in",
                      loginBtnLabel: "Log In",
                      statusMsg: resText});
     }
@@ -152,7 +156,7 @@ cancelCreateAccount = () => {
 
   render() {
     return(
-        <div>
+        <div >
         <center>
         {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                        <button className="modal-close" onClick={this.closeStatusMsg}>
@@ -169,9 +173,16 @@ cancelCreateAccount = () => {
             {this.state.showResetPaswordDialog ? 
               <ResetPasswordDialog cancelResetPassword={this.cancelResetPassword}
                                    resetPassword={this.resetPassword} /> : null}
+
+            <p></p>
+            <div className = "loginTitle">
+            EECS Course Scheduler
+            </div>
+            <p></p>
             <form id="loginInterface" onSubmit={this.handleLoginSubmit}>
-            <label htmlFor="emailInput" style={{ padding: 0, fontSize: 24 }}>
-                Email:
+
+            <label htmlFor="emailInput" style={{ padding: 0, fontSize: 18 }}>
+                Account email
                 <input
                 ref={this.emailInputRef}
                 className="form-control login-text"
@@ -183,8 +194,9 @@ cancelCreateAccount = () => {
                 />
             </label>
             <p />
-            <label htmlFor="passwordInput" style={{ padding: 0, fontSize: 24 }}>
-                Password:
+
+            <label htmlFor="passwordInput" style={{ padding: 0, fontSize: 18 }}>
+                Password
                 <input
                 ref={this.passwordInputRef}
                 className="form-control login-text"
@@ -194,6 +206,14 @@ cancelCreateAccount = () => {
                 required={true}
                 />
             </label>
+            <div>
+                <input type="radio" value="Student" name="role" required checked  /> Student
+                <span>&nbsp;&nbsp;</span>
+                <input type="radio" value="Admin" name="role" /> Admin
+            </div>
+
+
+
             <p className="bg-danger" id="feedback" style={{ fontSize: 16 }} />
             <button
                 type="submit"
@@ -202,6 +222,8 @@ cancelCreateAccount = () => {
                 &nbsp;{this.state.loginBtnLabel}
             </button>
             <p>
+
+
             <button type="button" className="btn btn-link login-link" 
                     onClick={() => {this.setState({showCreateAccountDialog: true});}}>
                 Create an account</button> | 

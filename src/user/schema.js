@@ -7,6 +7,7 @@ import {roundSchema} from '../round/schema'
 const userSchema = new mongoose.Schema({
     id: String, //unique identifier for user
     password: String,
+    admin: Boolean,
     displayName: String, //Name to be displayed within app
     authStrategy: String, //strategy used to authenticate, e.g., github, local
     profilePicURL: String, //link to profile image

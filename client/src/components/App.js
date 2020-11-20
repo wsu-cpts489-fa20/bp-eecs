@@ -9,23 +9,8 @@ import FeedPage from './FeedPage.js';
 import Rounds from './Rounds.js';
 import CoursesPage from './CoursesPage.js';
 import AboutBox from './AboutBox.js';
-import {HashRouter as Router} from "react-router-dom";
-
-const modeTitle = {};
-modeTitle[AppMode.LOGIN] = "EECS Course Scheduler";
-modeTitle[AppMode.FEED] = "Activity Feed";
-modeTitle[AppMode.ROUNDS] = "My Rounds";
-modeTitle[AppMode.ROUNDS_LOGROUND] = "Log New Round";
-modeTitle[AppMode.ROUNDS_EDITROUND] = "Edit Round";
-modeTitle[AppMode.COURSES] = "Courses";
-
-const modeToPage = {};
-modeToPage[AppMode.LOGIN] = LoginPage;
-modeToPage[AppMode.FEED] = FeedPage;
-modeToPage[AppMode.ROUNDS] = Rounds;
-modeToPage[AppMode.ROUNDS_LOGROUND] = Rounds;
-modeToPage[AppMode.ROUNDS_EDITROUND] = Rounds;
-modeToPage[AppMode.COURSES] = CoursesPage;
+import {HashRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import Majors from "../Majors";
 
 
 class App extends React.Component {
@@ -69,19 +54,13 @@ class App extends React.Component {
     //mode state var is set to newMode. After this method is called, the
     //App will re-render itself, forcing the new data to
     //propagate to the child components when they are re-rendered.
-    refreshOnUpdate = async (newMode) => {
+    refreshOnUpdate = async () => {
         let response = await fetch("/users/" + this.state.userObj.id);
         response = await response.json();
         const obj = JSON.parse(response);
         this.setState({
-            userObj: obj,
-            mode: newMode
+            userObj: obj
         });
-    }
-
-
-    handleChangeMode = (newMode) => {
-        this.setState({mode: newMode});
     }
 
     openMenu = () => {
@@ -94,13 +73,6 @@ class App extends React.Component {
 
     toggleMenuOpen = () => {
         this.setState(prevState => ({menuOpen: !prevState.menuOpen}));
-    }
-
-    setUserId = (Id) => {
-        this.setState({
-            userId: Id,
-            authenticated: true
-        });
     }
 
     showEditAccount = () => {
@@ -135,10 +107,17 @@ class App extends React.Component {
         this.setState({statusMsg: ""});
     }
 
+    logOut = () => {
+        this.setState({
+            userObj: {},
+            authenticated: false
+        })
+    }
+
     render() {
-        const ModePage = modeToPage[this.state.mode];
         return (
             <Router>
+                {!this.state.authenticated ? <Redirect to="/login"/> : null}
                 <div className="padded-page">
                     {this.state.showAboutDialog ?
                         <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
@@ -154,33 +133,49 @@ class App extends React.Component {
                             done={this.editAccountDone}
                             cancel={this.cancelEditAccount}/> : null}
                     <NavBar
-                        title={modeTitle[this.state.mode]}
-                        mode={this.state.mode}
-                        changeMode={this.handleChangeMode}
                         menuOpen={this.state.menuOpen}
                         toggleMenuOpen={this.toggleMenuOpen}/>
                     <SideMenu
                         menuOpen={this.state.menuOpen}
-                        mode={this.state.mode}
                         toggleMenuOpen={this.toggleMenuOpen}
                         displayName={this.state.userObj.displayName}
                         profilePicURL={this.state.userObj.profilePicURL}
                         localAccount={this.state.userObj.authStrategy === "local"}
                         editAccount={this.showEditAccount}
-                        logOut={() => this.handleChangeMode(AppMode.LOGIN)}
+                        logOut={() => this.logOut()}
                         showAbout={() => {
                             this.setState({showAboutDialog: true})
                         }}/>
-                    <ModeBar
-                        mode={this.state.mode}
-                        changeMode={this.handleChangeMode}
-                        menuOpen={this.state.menuOpen}/>
-                    <ModePage
-                        menuOpen={this.state.menuOpen}
-                        mode={this.state.mode}
-                        changeMode={this.handleChangeMode}
-                        userObj={this.state.userObj}
-                        refreshOnUpdate={this.refreshOnUpdate}/>
+
+                    <Switch>
+                        <Route path="/login">
+                            <LoginPage/>
+                        </Route>
+                        <Route path="/">
+                            <ModeBar
+                                menuOpen={this.state.menuOpen}
+                                modes={Object.values(Majors)}
+                            />
+                            <Switch>
+                                <Route path="/feed">
+                                    <FeedPage/>
+                                </Route>
+                                <Route path="/rounds">
+                                    <Rounds/>
+                                </Route>
+                                <Route path="/courses">
+                                    <CoursesPage/>
+                                </Route>
+                            </Switch>
+                        </Route>
+                    </Switch>
+
+                    {/*<ModePage*/}
+                    {/*    menuOpen={this.state.menuOpen}*/}
+                    {/*    mode={this.state.mode}*/}
+                    {/*    changeMode={this.handleChangeMode}*/}
+                    {/*    userObj={this.state.userObj}*/}
+                    {/*    refreshOnUpdate={this.refreshOnUpdate}/>*/}
                 </div>
             </Router>
         );

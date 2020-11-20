@@ -24,7 +24,7 @@ class NavBar extends React.Component {
                         </Route>
 
                     </Switch>
-                    <img src={require('../images/WSU-logo.png')} alt="WSU Logo" height="38px" width="38px"/>
+                    <img src={require('../images/EECS-logo.png')} alt="WSU Logo" height="50%" width="50%"/>
                     <span className="navbar-title">
                         <Switch>
 

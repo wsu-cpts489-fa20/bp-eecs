@@ -1,7 +1,5 @@
 import React from 'react';
-import NavLink from "react-router-dom/modules/NavLink";
-import Switch from "react-router-dom/es/Switch";
-import Route from "react-router-dom/es/Route";
+import {NavLink, Switch, Route} from "react-router-dom";
 
 
 class ModeBar extends React.Component {

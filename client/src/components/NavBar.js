@@ -1,7 +1,5 @@
 import React from 'react';
-import Switch from "react-router-dom/es/Switch";
-import Route from "react-router-dom/es/Route";
-import Link from "react-router-dom/modules/Link";
+import {Link, Switch, Route} from "react-router-dom";
 
 class NavBar extends React.Component {
     render() {

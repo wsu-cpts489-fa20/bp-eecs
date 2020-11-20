@@ -1,32 +1,34 @@
 import React from 'react';
-import AppMode from '../AppMode.js';
+import NavLink from "react-router-dom/modules/NavLink";
+import Switch from "react-router-dom/es/Switch";
+import Route from "react-router-dom/es/Route";
 
 
 class ModeBar extends React.Component {
+
+    makeModeButton = (mode) => {
+        return (
+            <NavLink to={mode.path} activeClassName="item-selected">
+                <span className="modebar-text">
+                    {mode.prettyName}
+                </span>
+            </NavLink>
+        )
+    }
+
     render() {
-      return(
-        <div className={"modebar" + (this.props.mode === AppMode.LOGIN ?
-          " invisible" : (this.props.menuOpen ? " ignore-click visible" : " visible"))}>
-        <a className={(this.props.mode === AppMode.FEED ? " item-selected" : null)}
-            onClick={()=>this.props.changeMode(AppMode.FEED)}>
-          <span className="modebaricon fa fa-th-list"></span>
-          <span className="modebar-text">Feed</span>
-        </a>
-        <a className={(this.props.mode === AppMode.ROUNDS ||
-               this.props.mode === AppMode.ROUNDS_EDITROUND ||
-               this.props.mode === AppMode.ROUNDS_LOGROUND ?
-                  " item-selected" : null)}
-           onClick={()=>this.props.changeMode(AppMode.ROUNDS)}>
-          <span className="modebar-icon  fa fa-history"></span>
-          <span className="modebar-text">Rounds</span>
-        </a>
-        <a className={(this.props.mode === AppMode.COURSES ? " item-selected" : null)}
-          onClick={()=>this.props.changeMode(AppMode.COURSES)}>
-          <span className="modebar-icon  fa fa-flag"></span>
-          <span className="modebar-text">Courses</span>
-        </a> 
-        </div>
-      );
+        const modes = this.props.modes;
+        const buttons = modes.map(this.makeModeButton);
+        return (
+            <Switch>
+                <Route path="/login" />
+                <Route path="/">
+                    <div className={"modebar visible" + (this.props.menuOpen ? " ignore-click" : "")}>
+                        {buttons}
+                    </div>
+                </Route>
+            </Switch>
+        );
     }
 }
 

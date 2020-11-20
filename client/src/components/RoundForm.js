@@ -1,5 +1,4 @@
 import React from 'react';
-import AppMode from '../AppMode.js';
 
 class RoundForm extends React.Component {
     constructor(props) {
@@ -7,29 +6,36 @@ class RoundForm extends React.Component {
         //Create date object for today, taking time zone into consideration
         let today = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
         //store date as ISO string
-        if (this.props.mode === AppMode.ROUNDS_LOGROUND) {
-            //If logging a new round, the starting state is a default round with
-            //today's date.
-            this.state = {
-                date: today.toISOString().substr(0, 10),
-                course: "",
-                type: "practice",
-                holes: "18",
-                strokes: 80,
-                minutes: 50,
-                seconds: "00",
-                notes: "",
-                faIcon: "fa fa-save",
-                btnLabel: "Save Round Data"
+        //If logging a new round, the starting state is a default round with
+        //today's date.
+        this.state = {
+            date: today.toISOString().substr(0, 10),
+            course: "",
+            type: "practice",
+            holes: "18",
+            strokes: 80,
+            minutes: 50,
+            seconds: "00",
+            notes: "",
+            faIcon: "fa fa-save",
+            btnLabel: "Save Round Data"
+        }
+    }
+
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        if (id) {
+            const round = this.props.rounds[id];
+            round.date = round.date.substr(0, 10);
+            if (round.seconds < 10) {
+                round.seconds = "0" + round.seconds;
             }
-        } else {
-            //if editing an existing round, the starting state is the round's
-            //current data
-            let thisRound = {...this.props.startData};
-            delete thisRound.id;
-            thisRound.faIcon = "fa fa-edit";
-            thisRound.btnLabel = "Update Round Data";
-            this.state = thisRound;
+            delete round.SGS;
+            this.setState({
+                ...round,
+                faIcon: "fa fa-edit",
+                btnLabel: "Update Round Data"
+            });
         }
     }
 
@@ -67,7 +73,7 @@ class RoundForm extends React.Component {
         //start spinner
         this.setState({
             faIcon: "fa fa-spin fa-spinner",
-            btnLabel: (this.props.mode === AppMode.ROUNDS_LOGROUND ?
+            btnLabel: (this.props.match.url === "/rounds/add" ?
                 "Saving..." : "Updating...")
         });
         //Prepare current round data to be saved
@@ -81,8 +87,7 @@ class RoundForm extends React.Component {
 
 
     computeSGS = (strokes, min, sec) => {
-        return (Number(strokes) + Number(min))
-            + ":" + sec;
+        return `${Number(strokes) + Number(min)}:${sec}`;
     }
 
     render() {
@@ -146,8 +151,11 @@ class RoundForm extends React.Component {
                     </label>
                     <p></p>
                     <p></p>
-                    <button type="submit" style={{width: "70%", fontSize: "36px"}}
-                            className="btn btn-primary btn-color-theme">
+
+                    <button
+                        type="submit"
+                        style={{width: "70%", fontSize: "36px"}}
+                        className="btn btn-primary btn-color-theme">
                         <span className={this.state.faIcon}/>&nbsp;{this.state.btnLabel}
                     </button>
                 </center>

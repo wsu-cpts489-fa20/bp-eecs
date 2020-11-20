@@ -21,7 +21,7 @@ class ModeBar extends React.Component {
             <Switch>
                 <Route path="/login" />
                 <Route path="/">
-                    <div className={"modebar visible" + (this.props.menuOpen ? " ignore-click" : "")}>
+                    <div className={"modebar" + (this.props.menuOpen ? " ignore-click" : "")}>
                         {buttons}
                     </div>
                 </Route>

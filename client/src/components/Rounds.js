@@ -3,19 +3,17 @@
 //appropriate rounds mode page based on App's mode, which is passed in as a prop.
 
 import React from 'react';
-import AppMode from '../AppMode.js';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js';
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Route, Switch, useRouteMatch, useHistory, withRouter} from "react-router-dom";
 
 class Rounds extends React.Component {
 
     //Initialize a Rounds object based on local storage
     constructor(props) {
         super(props);
-        this.deleteId = "";
-        this.editId = "";
+
         this.state = {
             errorMsg: "",
             roundFormRedirect: null
@@ -26,8 +24,7 @@ class Rounds extends React.Component {
     //server POST route to add the new round to the database. If the add is
     //successful, call on the refreshOnUpdate() method to force the parent
     //App component to refresh its state from the database and re-render itself,
-    //allowing the change to be propagated to the Rounds table. Then switch
-    //the mode back to AppMode.ROUNDS since the user is done adding a round.
+    //allowing the change to be propagated to the Rounds table.
     addRound = async (newData) => {
         const url = '/rounds/' + this.props.userObj.id;
         const res = await fetch(url, {
@@ -39,21 +36,22 @@ class Rounds extends React.Component {
             body: JSON.stringify(newData)
         });
         const msg = await res.text();
-        if (res.status != 200) {
+        if (res.status !== 200) {
             this.setState({errorMsg: msg});
-            this.props.changeMode(AppMode.ROUNDS);
         } else {
             this.setState({errorMsg: ""});
-            this.props.refreshOnUpdate(AppMode.ROUNDS);
+            await this.props.refreshOnUpdate();
         }
+        const history = useHistory();
+        history.push(this.url)
     }
 
     //editRound -- Given an object newData containing updated data on an
-    //existing round, update the current user's round in the database. 
-    //toggle the mode back to AppMode.ROUNDS since the user is done editing the
-    //round. 
+    //existing round, update the current user's round in the database.
     editRound = async (newData) => {
-        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[this.editId]._id}`;
+        const match = useRouteMatch(`${this.props.match.path}/edit/:id`)
+        const editId = match.params.id
+        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[editId]._id}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -65,43 +63,32 @@ class Rounds extends React.Component {
         const msg = await res.text();
         if (res.status !== 200) {
             this.setState({errorMsg: msg});
-            this.props.changeMode(AppMode.ROUNDS);
         } else {
-            this.props.refreshOnUpdate(AppMode.ROUNDS);
+            await this.props.refreshOnUpdate();
         }
+        const history = useHistory();
+        history.push(this.url)
     }
 
 
     //deleteRound -- Delete the current user's round uniquely identified by
     //this.state.deleteId, delete from the database, and reset deleteId to empty.
     deleteRound = async () => {
-        const url = '/rounds/' + this.props.userObj.id + '/' +
-            this.props.userObj.rounds[this.deleteId]._id;
+        const match = useRouteMatch(`${this.props.match.path}/delete/:id`);
+        if (!match) {
+            return;
+        }
+        const deleteId = match.params.id
+        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[deleteId]._id}`;
         const res = await fetch(url, {method: 'DELETE'});
         const msg = await res.text();
-        if (res.status != 200) {
+        if (res.status !== 200) {
             this.setState({
-                errorMsg: "An error occurred when attempting to delete round from database: "
-                    + msg
+                errorMsg: `An error occurred when attempting to delete round from database: ${msg}`
             });
-            this.props.changeMode(AppMode.ROUNDS);
         } else {
-            this.props.refreshOnUpdate(AppMode.ROUNDS);
+            await this.props.refreshOnUpdate();
         }
-    }
-
-    //setDeleteId -- Capture in this.state.deleteId the unique id of the item
-    //the user is considering deleting.
-    setDeleteId = (val) => {
-        this.deleteId = val;
-        this.setState({errorMsg: ""});
-    }
-
-    //setEditId -- Capture in this.state.editId the unique id of the item
-    //the user is considering editing.
-    setEditId = (val) => {
-        this.editId = val;
-        this.setState({errorMsg: ""});
     }
 
     closeErrorMsg = () => {
@@ -114,16 +101,16 @@ class Rounds extends React.Component {
     render() {
         return (
             <Switch>
-                <Route path="/rounds/add">
+                <Route path={`${this.props.match.path}/add`}>
                     <RoundForm
                         saveRound={this.addRound}/>
                 </Route>
-                <Route path="/rounds/edit/:id">
+                <Route path={`${this.props.match.path}/edit/:id`}>
                     <RoundForm
                         rounds={this.props.userObj.rounds}
                         saveRound={this.editRound}/>
                 </Route>
-                <Route path="/rounds">
+                <Route path={`${this.props.match.path}`}>
                     {this.state.errorMsg !== ""
                         ? <div className="status-msg">
                             <span>{this.state.errorMsg}</span>
@@ -134,11 +121,9 @@ class Rounds extends React.Component {
                         : null}
                     <RoundsTable
                         rounds={this.props.userObj.rounds}
-                        setEditId={this.setEditId}
-                        setDeleteId={this.setDeleteId}
                         deleteRound={this.deleteRound}
                         menuOpen={this.props.menuOpen}/>
-                    <Link to="/rounds/add">
+                    <Link to={`${this.props.match.url}/add`}>
                         <FloatingButton
                             menuOpen={this.props.menuOpen}
                             icon={"fa fa-plus"}/>
@@ -149,4 +134,4 @@ class Rounds extends React.Component {
     }
 }
 
-export default Rounds;
+export default withRouter(Rounds);

@@ -153,9 +153,8 @@ class App extends React.Component {
 
                     <Switch>
                         <Route path="/login">
-                            <LoginPage
-                                testAuth={this.testAuth}
-                                authenticated={this.state.authenticated}/>
+                            {this.props.authenticated ? <Redirect to="/"/> : null}
+                            <LoginPage testAuth={this.testAuth}/>
                         </Route>
                         <Route path="/">
                             <ModeBar

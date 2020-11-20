@@ -173,7 +173,6 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
-                {this.props.authenticated ? <Redirect to="/"/> : null}
                 <center>
                     {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                         <button className="modal-close" onClick={this.closeStatusMsg}>

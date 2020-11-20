@@ -10,12 +10,7 @@ class NavBar extends React.Component {
                 <span className="navbar-items">
                     <Switch>
 
-                        <Route path="/rounds/add">
-                            <Link to="/rounds" className="sidemenu-btn">
-                                <span id="menuBtnIcon" className={"sidemenu-btn-icon fa fa-arrow-left"}/>
-                            </Link>
-                        </Route>
-                        <Route path="/rounds/edit">
+                        <Route path={["/rounds/add", "/rounds/edit"]}>
                             <Link to="/rounds" className="sidemenu-btn">
                                 <span id="menuBtnIcon" className={"sidemenu-btn-icon fa fa-arrow-left"}/>
                             </Link>

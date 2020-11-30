@@ -13,3 +13,11 @@ test('Login', async t => {
         
 });
 
+test('ResetButton', async t => {
+    //const passwordInput = Selector('input').withAttribute('class', 'form-control login-text', 'type', 'password', 'placeholder', 'Enter Password');
+    await t
+          
+        .click('#resetPasswordBtn')
+        .expect(Selector('#resetDialog').visible).eql(true)
+        
+});

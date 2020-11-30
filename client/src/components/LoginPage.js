@@ -251,7 +251,7 @@ class LoginPage extends React.Component {
                                 Create an account
                             </button>
                             |
-                            <button type="button" className="btn btn-link login-link"
+                            <button id = "resetPasswordBtn" type="button" className="btn btn-link login-link"
                                     onClick={() => {
                                         this.setState({showLookUpAccountDialog: true});
                                     }}>

@@ -216,10 +216,12 @@ class LoginPage extends React.Component {
                         <label htmlFor="passwordInput" style={{padding: 0, fontSize: 18}}>
                             Password
                             <input
+                                
                                 ref={this.passwordInputRef}
                                 className="form-control login-text"
                                 type="password"
                                 placeholder="Enter Password"
+                                id = "passwordInput" 
                                 pattern="[A-Za-z0-9!@#$%^&*()_+\-]+"
                                 required={true}
                             />
@@ -232,7 +234,8 @@ class LoginPage extends React.Component {
 
 
                         <p className="bg-danger" id="feedback" style={{fontSize: 16}}/>
-                        <button
+                        <button 
+                            id = "loginBtn"
                             type="submit"
                             className="btn-color-theme btn btn-primary btn-block login-btn">
                             <span id="login-btn-icon" className={this.state.loginBtnIcon}/>

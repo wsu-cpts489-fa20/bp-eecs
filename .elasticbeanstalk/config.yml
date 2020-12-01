@@ -1,13 +1,15 @@
 branch-defaults:
   master:
-    environment: SpeedgolfMern-env
+    environment: Eecsdegree-env
+    group_suffix: null
 environment-defaults:
-  SpeedgolfMern-env:
+  Eecsdegree-env:
     branch: null
     repository: null
 global:
-  application_name: speedgolf-MERN
-  default_ec2_keyname: null
+  application_name: eecsdegree
+  branch: null
+  default_ec2_keyname: eecsdegree
   default_platform: Node.js 12 running on 64bit Amazon Linux 2
   default_region: us-west-2
   include_git_submodules: true
@@ -15,5 +17,6 @@ global:
   platform_name: null
   platform_version: null
   profile: eb-cli
+  repository: null
   sc: git
   workspace_type: Application

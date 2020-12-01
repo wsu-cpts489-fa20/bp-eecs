@@ -4,7 +4,7 @@
   "description": "An app for browsing EECS course requirements",
   "main": "build/main.js",
   "scripts": {
-    "start": "node build/main.js",
+    "start": "nodemon --ignore client --exec babel-node src/main.js",
     "build": "babel src/ --out-dir build/",
     "serve": "nodemon --ignore client --exec babel-node src/main.js",
     "serve-client": "npm run start --prefix client/",

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 import {roundSchema} from '../round/schema'
+import regeneratorRuntime from 'regenerator-runtime';
 
 //Define schema that maps to a document in the Users collection in the appdb
 //database.

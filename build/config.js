@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 require('dotenv').config();
 
 var LOCAL_PORT = 8080;
-var DEPLOY_URL = process.env.PUBLIC_URL || "http://localhost:8080";
+var DEPLOY_URL = process.env.PUBLIC_URL || "https://eecsdegree.bfapp.org/";
 exports.DEPLOY_URL = DEPLOY_URL;
 var PORT = process.env.HTTP_PORT || LOCAL_PORT;
 exports.PORT = PORT;

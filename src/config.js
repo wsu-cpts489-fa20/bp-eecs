@@ -3,8 +3,7 @@ import path from "path";
 require('dotenv').config();
 
 const LOCAL_PORT = 8080;
-const DEPLOY_URL = process.env.PUBLIC_URL || "https://eecsdegree.bfapp.org/";
-console.log("deploy url =", DEPLOY_URL);
+const DEPLOY_URL = process.env.PUBLIC_URL || "http://localhost:8080";
 const PORT = process.env.HTTP_PORT || LOCAL_PORT;
 const MONGO_STR = process.env.MONGO_STR;
 const GH_CLIENT_ID = process.env.GH_CLIENT_ID;

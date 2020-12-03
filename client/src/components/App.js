@@ -8,6 +8,8 @@ import Rounds from './Rounds.js';
 import AboutBox from './AboutBox.js';
 import {Redirect, Route, Switch} from "react-router-dom";
 import Majors from "../Majors";
+import AdminView from "./AdminView";
+import StudentView from "./StudentView";
 
 
 class App extends React.Component {
@@ -157,17 +159,14 @@ class App extends React.Component {
                                     menuOpen={this.state.menuOpen}
                                     modes={Object.values(Majors)}
                                 />
-                                <Switch>
-                                    {Object.values(Majors).map((major) =>
-                                        <Route path={major.path}>
-                                            <Rounds
-                                                userObj={this.state.userObj}
-                                                refreshOnUpdate={this.refreshOnUpdate}
-                                                menuOpen={this.state.menuOpen}
-                                            />
-                                        </Route>
-                                    )}
-                                </Switch>
+                                {this.state.userObj.admin
+                                    ? <AdminView
+                                        userObj={this.state.userObj}
+                                        refreshOnUpdate={this.refreshOnUpdate}
+                                        menuOpen={this.state.menuOpen}
+                                    />
+                                    : <StudentView/>
+                                }
                             </>
                             : <Redirect to="/login" />
                         }

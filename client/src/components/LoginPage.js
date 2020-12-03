@@ -226,7 +226,7 @@ class LoginPage extends React.Component {
                             />
                         </label>
                         <div>
-                            <input type="radio" value="Student" name="role" required checked/> Student
+                            <input type="radio" value="Student" name="role" required defaultChecked/> Student
                             <span>&nbsp;&nbsp;</span>
                             <input type="radio" value="Admin" name="role"/> Admin
                         </div>

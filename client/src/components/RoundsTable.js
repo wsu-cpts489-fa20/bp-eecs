@@ -3,7 +3,7 @@ import ConfirmDeleteRound from './ConfirmDeleteRound.js';
 import {Link, Switch, Route, useHistory} from "react-router-dom";
 
 class RoundsTable extends React.Component {
-
+  //passed tableMode in which holds the table mode
   constructor(props) {
     super(props);
     this.state = {showConfirmDelete: false};
@@ -24,9 +24,17 @@ class RoundsTable extends React.Component {
 
   //renderTable -- render an HTML table displaying the rounds logged
   //by the current user and providing buttons to view/edit and delete each round.
+  //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
   let table = [];
+  let tableMode = this.props.tableMode;
+  let matchingLength = tableMode.length - 1;
   for (let r = 0; r < this.props.rounds.length; ++r) {
+    if(this.props.rounds[r].courseId.slice(0,matchingLength) == tableMode.slice(1,matchingLength + 1)) //allows for filtering of courses
+    //need to add the specific table mode im in and then its done.
+    {
+      console.log("found a cpts class");
+    
     table.push(
       <tr key={r}>
         <td>{this.props.rounds[r].courseId}</td>
@@ -45,6 +53,7 @@ class RoundsTable extends React.Component {
         </td>
       </tr>
     );
+  }
   }
   return table;
   }

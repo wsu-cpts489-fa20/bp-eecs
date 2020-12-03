@@ -114,63 +114,66 @@ class App extends React.Component {
 
     render() {
         return (
-                <div className="padded-page">
-                    {!this.state.authenticated
-                        ? <Redirect to="/login"/>
-                        : null
-                    }
-                    {this.state.showAboutDialog ?
-                        <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
-                    {this.state.statusMsg != "" ? <div className="status-msg">
-                        <span>{this.state.statusMsg}</span>
-                        <button className="modal-close" onClick={this.closeStatusMsg}>
-                            <span className="fa fa-times"></span></button>
-                    </div> : null}
-                    {this.state.showEditAccountDialog ?
-                        <CreateEditAccountDialog
-                            create={false}
-                            userId={this.state.userObj.id}
-                            done={this.editAccountDone}
-                            cancel={this.cancelEditAccount}/> : null}
-                    <NavBar
-                        menuOpen={this.state.menuOpen}
-                        toggleMenuOpen={this.toggleMenuOpen}/>
-                    <SideMenu
-                        menuOpen={this.state.menuOpen}
-                        toggleMenuOpen={this.toggleMenuOpen}
-                        displayName={this.state.userObj.displayName}
-                        profilePicURL={this.state.userObj.profilePicURL}
-                        localAccount={this.state.userObj.authStrategy === "local"}
-                        editAccount={this.showEditAccount}
-                        logOut={() => this.logOut()}
-                        showAbout={() => {
-                            this.setState({showAboutDialog: true})
-                        }}/>
+            <div className="padded-page">
+                {this.state.showAboutDialog ?
+                    <AboutBox close={() => this.setState({showAboutDialog: false})}/> : null}
+                {this.state.statusMsg != "" ? <div className="status-msg">
+                    <span>{this.state.statusMsg}</span>
+                    <button className="modal-close" onClick={this.closeStatusMsg}>
+                        <span className="fa fa-times"></span></button>
+                </div> : null}
+                {this.state.showEditAccountDialog ?
+                    <CreateEditAccountDialog
+                        create={false}
+                        userId={this.state.userObj.id}
+                        done={this.editAccountDone}
+                        cancel={this.cancelEditAccount}/> : null}
+                <NavBar
+                    menuOpen={this.state.menuOpen}
+                    toggleMenuOpen={this.toggleMenuOpen}/>
+                <SideMenu
+                    menuOpen={this.state.menuOpen}
+                    toggleMenuOpen={this.toggleMenuOpen}
+                    displayName={this.state.userObj.displayName}
+                    profilePicURL={this.state.userObj.profilePicURL}
+                    localAccount={this.state.userObj.authStrategy === "local"}
+                    editAccount={this.showEditAccount}
+                    logOut={() => this.logOut()}
+                    showAbout={() => {
+                        this.setState({showAboutDialog: true})
+                    }}/>
 
-                    <Switch>
-                        <Route path="/login">
-                            {this.state.authenticated ? <Redirect to="/"/> : null}
-                            <LoginPage testAuth={this.testAuth}/>
-                        </Route>
-                        <Route>
-                            <ModeBar
-                                menuOpen={this.state.menuOpen}
-                                modes={Object.values(Majors)}
-                            />
-                            <Switch>
-                                {Object.values(Majors).map((major) =>
-                                    <Route path={major.path}>
-                                        <Rounds
-                                            userObj={this.state.userObj}
-                                            refreshOnUpdate={this.refreshOnUpdate}
-                                            menuOpen={this.state.menuOpen}
-                                        />
-                                    </Route>
-                                )}
-                            </Switch>
-                        </Route>
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route path="/login">
+                        {this.state.authenticated
+                            ? <Redirect to="/" />
+                            : <LoginPage testAuth={this.testAuth} />
+                        }
+                    </Route>
+                    <Route>
+                        {this.state.authenticated
+                            ? <>
+                                <ModeBar
+                                    menuOpen={this.state.menuOpen}
+                                    modes={Object.values(Majors)}
+                                />
+                                <Switch>
+                                    {Object.values(Majors).map((major) =>
+                                        <Route path={major.path}>
+                                            <Rounds
+                                                userObj={this.state.userObj}
+                                                refreshOnUpdate={this.refreshOnUpdate}
+                                                menuOpen={this.state.menuOpen}
+                                            />
+                                        </Route>
+                                    )}
+                                </Switch>
+                            </>
+                            : <Redirect to="/login" />
+                        }
+                    </Route>
+                </Switch>
+            </div>
         );
     }
 }

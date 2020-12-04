@@ -64,7 +64,7 @@ class RoundsTable extends React.Component {
     return(
     <div className="padded-page">
       <h1></h1>
-      <table className="table table-hover">
+      <table className="table table-hover" id="roundTable">
         <thead className="thead-light">
         <tr>
           <th>Course ID</th>

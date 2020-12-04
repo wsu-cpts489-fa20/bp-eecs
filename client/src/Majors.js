@@ -5,10 +5,10 @@ import Mode from "./Mode";
  */
 
 const Majors = {
-    COMPUTER_SCIENCE: new Mode({path: "/cpts", prettyName: "Computer Science"}),
-    COMPUTER_ENGINEERING: new Mode({path: "/cpte", prettyName: "Computer Engineering"}),
-    ELECTRICAL_ENGINEERING: new Mode({path: "/ee", prettyName: "Electrical Engineering"}),
-    SOFTWARE_ENGINEERING: new Mode({path: "/se", prettyName: "Software Engineering"})
+    COMPUTER_SCIENCE: new Mode({path: "/cpts", prettyName: "Computer Science", id:"cpts"}),
+    COMPUTER_ENGINEERING: new Mode({path: "/cpte", prettyName: "Computer Engineering",id:"cpte"}),
+    ELECTRICAL_ENGINEERING: new Mode({path: "/ee", prettyName: "Electrical Engineering",id:"ee"}),
+    SOFTWARE_ENGINEERING: new Mode({path: "/se", prettyName: "Software Engineering",id:"se"})
 };
 
 Object.freeze(Majors);

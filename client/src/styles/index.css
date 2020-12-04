@@ -400,3 +400,13 @@ text-align: center;
     color: black;
     background-color: lightgray;
   }
+
+
+  .login-page{
+    background-image: url("../images/WSU-background2.png");
+    position:fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-size:cover;
+    background-position: center;
+  }

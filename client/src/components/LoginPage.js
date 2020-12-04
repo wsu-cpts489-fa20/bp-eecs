@@ -173,7 +173,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="login-page">
                 <center>
                     <br></br>
                     <br></br>
@@ -245,14 +245,14 @@ class LoginPage extends React.Component {
                                     onClick={() => {
                                         this.setState({showCreateAccountDialog: true});
                                     }}>
-                                Create an account
+                                <b>Create an account</b>
                             </button>
                             |
                             <button id="resetPasswordBtn" type="button" className="btn btn-link login-link"
                                     onClick={() => {
                                         this.setState({showLookUpAccountDialog: true});
                                     }}>
-                                Reset your password</button>
+                                <b>Reset your password</b></button>
                         </p>
                         <button type="button" className="btn btn-github"
                                 onClick={() => this.handleOAuthLoginClick("github")}>
@@ -260,7 +260,7 @@ class LoginPage extends React.Component {
                             {this.state.githubLabel}
                         </button>
                         <p>
-                            <i>Version CptS 489</i>
+                            <i><b>Version CptS 489</b></i>
                         </p>
                     </form>
                     {this.state.showCreateAccountDialog ?

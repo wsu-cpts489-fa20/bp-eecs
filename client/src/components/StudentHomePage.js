@@ -35,7 +35,7 @@ class StudentHomePage extends React.Component {
             <h1 >Welcome </h1>
             <h2> Student Home Page</h2>
             </center>
-            <label style= "text-align:left">Select your major:
+            <label style={{textAlign:"left"}}>Select your major:
                 <select name="major" value={this.state.major} 
                 className="form-control form-center" onChange={this.handleChange}>
                     <option value="Computer Science">Computer Science</option>
@@ -57,7 +57,8 @@ class StudentHomePage extends React.Component {
                 </tr>
                 </thead>
             </table>
-            <h3 style = "text-align:left">Class Dependeny Graph</h3>
+            <p></p>
+            <h3 style={{textAlign:"left"}}>Class Dependeny Graph</h3>
             <p></p>
             <h4>Future Classes List</h4>
         </div> 

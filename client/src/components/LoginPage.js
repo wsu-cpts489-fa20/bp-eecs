@@ -173,8 +173,10 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="login-page">
                 <center>
+                    <br></br>
+                    <br></br>
                     {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                         <button className="modal-close" onClick={this.closeStatusMsg}>
                             <span className="fa fa-times"></span>
@@ -226,11 +228,6 @@ class LoginPage extends React.Component {
                                 required={true}
                             />
                         </label>
-                        <div>
-                            <input type="radio" value="Student" name="role" required defaultChecked/> Student
-                            <span>&nbsp;&nbsp;</span>
-                            <input type="radio" value="Admin" name="role"/> Admin
-                        </div>
 
 
                         <p className="bg-danger" id="feedback" style={{fontSize: 16}}/>
@@ -248,14 +245,14 @@ class LoginPage extends React.Component {
                                     onClick={() => {
                                         this.setState({showCreateAccountDialog: true});
                                     }}>
-                                Create an account
+                                <b>Create an account</b>
                             </button>
                             |
                             <button id="resetPasswordBtn" type="button" className="btn btn-link login-link"
                                     onClick={() => {
                                         this.setState({showLookUpAccountDialog: true});
                                     }}>
-                                Reset your password</button>
+                                <b>Reset your password</b></button>
                         </p>
                         <button type="button" className="btn btn-github"
                                 onClick={() => this.handleOAuthLoginClick("github")}>
@@ -263,7 +260,7 @@ class LoginPage extends React.Component {
                             {this.state.githubLabel}
                         </button>
                         <p>
-                            <i>Version CptS 489</i>
+                            <i><b>Version CptS 489</b></i>
                         </p>
                     </form>
                     {this.state.showCreateAccountDialog ?

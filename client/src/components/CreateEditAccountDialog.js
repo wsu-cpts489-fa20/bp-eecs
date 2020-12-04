@@ -332,7 +332,7 @@ class CreateEditAccountDialog extends React.Component {
             <button className="btn btn-small btn-danger" onClick={this.confirmDeleteAccount}>
                 Delete Account...
             </button> : null}
-            <br/><br/>
+            <br/>
             <button role="submit" 
                 disabled={!this.state.formUpdated}
                 className="btn btn-primary btn-color-theme modal-submit-btn">
@@ -340,6 +340,8 @@ class CreateEditAccountDialog extends React.Component {
                 &nbsp;{this.props.create ? "Create Account" : "Update Account"}
             </button>
             </form>
+            <br/>
+            <label><b>Are you WSU staff or faculty?</b> Email us at EECS.SCHEDULER@WSU.EDU to set up an Admin account!</label>
             </div>
         </div>
         {this.state.confirmDelete ? 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfirmDeleteRound from './ConfirmDeleteRound.js';
 import {Link, Switch, Route, useHistory} from "react-router-dom";
+import {withRouter} from "react-router";
 
 class RoundsTable extends React.Component {
   //passed tableMode in which holds the table mode
@@ -18,8 +19,7 @@ class RoundsTable extends React.Component {
   }
 
   closeDeleteRoundsModal = () => {
-    const history = useHistory();
-    history.push("/rounds");
+    this.props.history.push("/rounds");
   }
 
   //renderTable -- render an HTML table displaying the rounds logged
@@ -96,4 +96,4 @@ class RoundsTable extends React.Component {
   }
 }
 
-export default RoundsTable;
+export default withRouter(RoundsTable);

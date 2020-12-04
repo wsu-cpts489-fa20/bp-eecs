@@ -158,6 +158,7 @@ class App extends React.Component {
                                 <ModeBar
                                     menuOpen={this.state.menuOpen}
                                     modes={Object.values(Majors)}
+                                    admin={this.state.userObj.admin}
                                 />
                                 {this.state.userObj.admin
                                     ? <AdminView

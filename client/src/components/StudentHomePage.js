@@ -10,6 +10,23 @@ class StudentHomePage extends React.Component {
     
     handleChange = (event) => {
         this.setState({major: event.target,value});
+        const url = '/rounds/' + this.props.userObj.id;
+        const res = await fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(this.state.major)
+        });
+        const msg = await res.text();
+        if (res.status !== 200) {
+            this.setState({errorMsg: msg});
+        } else {
+            this.setState({errorMsg: ""});
+            await this.props.refreshOnUpdate();
+        }
+        this.props.history.goBack()
     }
     render() {
         return (
@@ -18,7 +35,7 @@ class StudentHomePage extends React.Component {
             <h1 >Welcome </h1>
             <h2> Student Home Page</h2>
             </center>
-            <label>Major:
+            <label style= "text-align:left">Select your major:
                 <select name="major" value={this.state.major} 
                 className="form-control form-center" onChange={this.handleChange}>
                     <option value="Computer Science">Compter Science</option>

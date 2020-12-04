@@ -165,7 +165,7 @@ class App extends React.Component {
                                         refreshOnUpdate={this.refreshOnUpdate}
                                         menuOpen={this.state.menuOpen}
                                     />
-                                    : <StudentView/>
+                                    : <StudentView  userObj={this.state.userObj}/>
                                 }
                             </>
                             : <Redirect to="/login" />

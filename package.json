@@ -5,8 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "start": "node build/main.js",
-    "prestart": "npm-run-all --serial dev-deps build",
-    "dev-deps": "npm install --only=dev",
+    "prestart": "npm install --only=dev && npm run build",
     "build": "npm-run-all --parallel build:*",
     "build:server": "babel src/ --out-dir build/",
     "build:client": "npm run build --prefix client/",

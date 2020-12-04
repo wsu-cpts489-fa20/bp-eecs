@@ -10,7 +10,7 @@ router.get('/github', passport.authenticate('github'));
 //req.isAuthenticated() tells us whether authentication was successful.
 router.get('/github/callback', passport.authenticate('github', {failureRedirect: '/'}),
     (req, res) => {
-        console.log("auth/github/callback reached.")
+        console.log("/auth/github/callback reached.")
         res.redirect('/'); //sends user back to login screen;
                            //req.isAuthenticated() indicates status
     }
@@ -27,7 +27,7 @@ router.get('/logout', (req, res) => {
 //TEST route: Tests whether user was successfully authenticated.
 //Should be called from the React.js client to set up app state.
 router.get('/test', (req, res) => {
-    console.log("auth/test reached.");
+    console.log("/auth/test reached.");
     const isAuth = req.isAuthenticated();
     if (isAuth) {
         console.log("User is authenticated");

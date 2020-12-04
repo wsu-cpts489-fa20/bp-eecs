@@ -27,8 +27,8 @@ class CreateEditAccountDialog extends React.Component {
     async componentDidMount() {
         if (!this.props.create) {
             //obtain current user data from database and push into state
-            const url = "/users/" + this.props.userId;
-            const res = await fetch(url);
+            const url = `/api/users/${this.props.userId}`;
+            const res = await fetch(url, {headers: {Accept: 'application/json'}});
             const json = await res.json();
             const userData = JSON.parse(json);
             this.origAccountInfo = userData; //This determines whether update can occur
@@ -139,7 +139,7 @@ class CreateEditAccountDialog extends React.Component {
             securityQuestion: this.state.securityQuestion,
             securityAnswer: this.state.securityAnswer
         };
-        const url = '/users/' + this.state.accountName;
+        const url = `/api/users/${this.state.accountName}`;
         let res;
         if (this.props.create) { //use POST route to create new user account
             res = await fetch(url, {
@@ -179,9 +179,9 @@ class CreateEditAccountDialog extends React.Component {
     //Calls on done with status message and
     //true if delete was succesful, false otherwise.
     deleteAccount = async() => {
-       const url = '/users/' + this.state.accountName;
+       const url = `/api/users/${this.state.accountName}`;
        const res = await fetch(url, 
-                    {method: 'DELETE'}); 
+                    {method: 'DELETE', headers: {Accept: 'application/json'}});
         if (res.status == 200) { //successful account deletion!
             this.props.done("Account '" + this.state.accountName + "' has been deleted.",true);
         } else { //Unsuccessful account deletion

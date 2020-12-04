@@ -6,7 +6,7 @@ import {User} from '../user/schema';
 const github = new passportGithub.Strategy({
         clientID: GH_CLIENT_ID,
         clientSecret: GH_CLIENT_SECRET,
-        callbackURL: `${DEPLOY_URL}/auth/github/callback`
+        callbackURL: `${DEPLOY_URL}/api/auth/github/callback`
     },
     //The following function is called after user authenticates with github
     async (accessToken, refreshToken, profile, done) => {

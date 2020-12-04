@@ -36,7 +36,7 @@ class App extends React.Component {
 
     testAuth = () => {
         //Use /auth/test route to (re)-test authentication and obtain user data
-        fetch("/auth/test")
+        fetch("/api/auth/test", {headers: {Accept: 'application/json'}})
             .then((response) => response.json())
             .then((obj) => {
                     if (obj.isAuthenticated) {
@@ -56,7 +56,7 @@ class App extends React.Component {
     //App will re-render itself, forcing the new data to
     //propagate to the child components when they are re-rendered.
     refreshOnUpdate = async () => {
-        let response = await fetch("/users/" + this.state.userObj.id);
+        let response = await fetch(`/api/users/${this.state.userObj.id}`, {headers: {Accept: 'application/json'}});
         response = await response.json();
         const obj = JSON.parse(response);
         this.setState({

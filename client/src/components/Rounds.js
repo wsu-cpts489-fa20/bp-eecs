@@ -26,7 +26,7 @@ class Rounds extends React.Component {
     //App component to refresh its state from the database and re-render itself,
     //allowing the change to be propagated to the Rounds table.
     addRound = async (newData) => {
-        const url = '/rounds/' + this.props.userObj.id;
+        const url = `/api/rounds/${this.props.userObj.id}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -50,7 +50,7 @@ class Rounds extends React.Component {
     editRound = async (newData) => {
         const match = useRouteMatch(`${this.props.match.path}/edit/:id`)
         const editId = match.params.id
-        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[editId]._id}`;
+        const url = `/api/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[editId]._id}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -77,8 +77,8 @@ class Rounds extends React.Component {
             return;
         }
         const deleteId = match.params.id
-        const url = `/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[deleteId]._id}`;
-        const res = await fetch(url, {method: 'DELETE'});
+        const url = `/api/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[deleteId]._id}`;
+        const res = await fetch(url, {method: 'DELETE', headers: {Accept: 'application/json'}});
         const msg = await res.text();
         if (res.status !== 200) {
             this.setState({

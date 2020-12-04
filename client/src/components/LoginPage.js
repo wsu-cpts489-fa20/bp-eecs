@@ -3,7 +3,6 @@ import CreateEditAccountDialog from './CreateEditAccountDialog.js';
 import ResetPasswordDialog from './ResetPasswordDialog.js';
 import LookUpAccountDialog from './LookUpAccountDialog.js';
 import SecurityQuestionDialog from './SecurityQuestionDialog.js';
-import {Redirect} from "react-router-dom";
 
 class LoginPage extends React.Component {
     constructor() {
@@ -40,9 +39,11 @@ class LoginPage extends React.Component {
             loginBtnIcon: "fa fa-spin fa-spinner",
             loginBtnLabel: "Logging In..."
         });
-        const url = "/auth/login?username=" + this.emailInputRef.current.value +
-            "&password=" + this.passwordInputRef.current.value;
-        const res = await fetch(url, {method: 'POST'});
+        const url = `/api/auth/login?username=${this.emailInputRef.current.value}&password=${this.passwordInputRef.current.value}`;
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {Accept: 'application/json'}
+        });
         if (res.status === 200) { //successful login!
             this.props.testAuth()
         } else { //Unsuccessful login
@@ -87,7 +88,7 @@ class LoginPage extends React.Component {
     //handleOAuthLogin -- Callback function that initiates contact with OAuth
     //provider
     handleOAuthLogin = (provider) => {
-        window.open(`/auth/${provider}`, "_self");
+        window.open(`/api/auth/${provider}`, "_self");
     }
 
     //handleOAuthLoginClick -- Called whent the user clicks on button to
@@ -127,7 +128,7 @@ class LoginPage extends React.Component {
     //password. pw contains the new password. Call on the Update (PUT) server
     //route to update the user's password in the database.
     resetPassword = async (pw) => {
-        const url = "/users/" + this.resetUserId;
+        const url = `/api/users/${this.resetUserId}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -215,12 +216,12 @@ class LoginPage extends React.Component {
                         <label htmlFor="passwordInput" style={{padding: 0, fontSize: 18}}>
                             Password
                             <input
-                                
+
                                 ref={this.passwordInputRef}
                                 className="form-control login-text"
                                 type="password"
                                 placeholder="Enter Password"
-                                id = "passwordInput" 
+                                id="passwordInput"
                                 pattern="[A-Za-z0-9!@#$%^&*()_+\-]+"
                                 required={true}
                             />
@@ -233,8 +234,8 @@ class LoginPage extends React.Component {
 
 
                         <p className="bg-danger" id="feedback" style={{fontSize: 16}}/>
-                        <button 
-                            id = "loginBtn"
+                        <button
+                            id="loginBtn"
                             type="submit"
                             className="btn-color-theme btn btn-primary btn-block login-btn">
                             <span id="login-btn-icon" className={this.state.loginBtnIcon}/>
@@ -250,7 +251,7 @@ class LoginPage extends React.Component {
                                 Create an account
                             </button>
                             |
-                            <button id = "resetPasswordBtn" type="button" className="btn btn-link login-link"
+                            <button id="resetPasswordBtn" type="button" className="btn btn-link login-link"
                                     onClick={() => {
                                         this.setState({showLookUpAccountDialog: true});
                                     }}>

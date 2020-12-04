@@ -14,7 +14,7 @@ class LookUpAccountDialog extends React.Component {
     //and showing the security question dialog box.
     handleLookUpAccount = async(event) => {
         event.preventDefault();
-        let response = await fetch("/users/" + this.emailRef.current.value);
+        let response = await fetch(`/api/users/${this.emailRef.current.value}`, {headers: {Accept: 'application/json'}});
         if (response.status == 200) {
             const json = await response.json();
             const obj = JSON.parse(json);

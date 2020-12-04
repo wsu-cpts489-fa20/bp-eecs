@@ -175,6 +175,8 @@ class LoginPage extends React.Component {
         return (
             <div>
                 <center>
+                    <br></br>
+                    <br></br>
                     {this.state.statusMsg != "" ? <div className="status-msg"><span>{this.state.statusMsg}</span>
                         <button className="modal-close" onClick={this.closeStatusMsg}>
                             <span className="fa fa-times"></span>

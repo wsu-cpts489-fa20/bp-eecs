@@ -42,8 +42,7 @@ class Rounds extends React.Component {
             this.setState({errorMsg: ""});
             await this.props.refreshOnUpdate();
         }
-        const history = useHistory();
-        history.push(this.url)
+        this.props.history.goBack()
     }
 
     //editRound -- Given an object newData containing updated data on an
@@ -66,8 +65,7 @@ class Rounds extends React.Component {
         } else {
             await this.props.refreshOnUpdate();
         }
-        const history = useHistory();
-        history.push(this.url)
+        this.props.history.goBack()
     }
 
 

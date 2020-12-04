@@ -8,8 +8,8 @@ class StudentHomePage extends React.Component {
     }
 
     
-    handleChange = (event) => {
-        this.setState({major: event.target,value});
+    handleChange = async (event) => {
+        this.setState({major: event.target.value});
         const url = '/rounds/' + this.props.userObj.id;
         const res = await fetch(url, {
             headers: {
@@ -38,7 +38,7 @@ class StudentHomePage extends React.Component {
             <label style= "text-align:left">Select your major:
                 <select name="major" value={this.state.major} 
                 className="form-control form-center" onChange={this.handleChange}>
-                    <option value="Computer Science">Compter Science</option>
+                    <option value="Computer Science">Computer Science</option>
                     <option value="Computer Engineering">Computer Engineering</option>
                     <option value="Electrical Engineering">Electrical Engineering</option>
                     <option value="Software Engineering">Software Engineering</option>

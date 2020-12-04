@@ -17,12 +17,13 @@ class ModeBar extends React.Component {
     render() {
         const modes = this.props.modes;
         const buttons = modes.map(this.makeModeButton);
+
         return (
             <Switch>
                 <Route path="/login" />
                 <Route path="/">
                     <div className={"modebar" + (this.props.menuOpen ? " ignore-click" : "")}>
-                        {buttons}
+                        {this.props.admin ? buttons : null}
                     </div>
                 </Route>
             </Switch>

@@ -52,5 +52,5 @@ app
     .use(passport.initialize())
     .use(passport.session())
     .use(express.json({limit: '20mb'}))
-    .use('/', router)
+    .use('/api', router)
     .listen(PORT, () => console.log(`Listening on ${PORT}`));

@@ -226,11 +226,6 @@ class LoginPage extends React.Component {
                                 required={true}
                             />
                         </label>
-                        <div>
-                            <input type="radio" value="Student" name="role" required defaultChecked/> Student
-                            <span>&nbsp;&nbsp;</span>
-                            <input type="radio" value="Admin" name="role"/> Admin
-                        </div>
 
 
                         <p className="bg-danger" id="feedback" style={{fontSize: 16}}/>

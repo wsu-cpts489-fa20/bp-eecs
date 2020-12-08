@@ -410,3 +410,8 @@ text-align: center;
     background-size:cover;
     background-position: center;
   }
+
+.checkbox-size {
+  width: 24px;
+  height: 24px;
+}

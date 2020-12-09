@@ -26,34 +26,32 @@ class RoundsTable extends React.Component {
   //by the current user and providing buttons to view/edit and delete each round.
   //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
-  let table = [];
-  let tableMode = this.props.tableMode;
-  let matchingLength = tableMode.length - 1;
+  const table = [];
+  const tableMode = this.props.tableMode;
+  const courseTag = tableMode.slice(1);
+  const matchingLength = tableMode.length - 1;
   for (let r = 0; r < this.props.rounds.length; ++r) {
-    if(this.props.rounds[r].courseId.slice(0,matchingLength) == tableMode.slice(1,matchingLength + 1)) //allows for filtering of courses
-    //need to add the specific table mode im in and then its done.
-    {
-      console.log("found a cpts class");
-    
-    table.push(
-      <tr key={r}>
-        <td>{this.props.rounds[r].courseId}</td>
-        <td>{this.props.rounds[r].courseName}</td>
-        <td>{this.props.rounds[r].description}</td>
-        <td>{this.props.rounds[r].prerequisites}</td>
-        <td>
-          <Link to={`/rounds/edit/${r}`}>
-              <span className="fa fa-eye"/>
-          </Link>
-        </td>
-        <td>
-          <Link to={`/rounds/delete/${r}`}>
-              <span className="fa fa-trash"/>
-          </Link>
-        </td>
-      </tr>
-    );
-  }
+    // Filters courses based on associated table mode
+    if (this.props.rounds[r][courseTag]) {
+      table.push(
+        <tr key={r}>
+          <td>{this.props.rounds[r].courseId}</td>
+          <td>{this.props.rounds[r].courseName}</td>
+          <td>{this.props.rounds[r].description}</td>
+          <td>{this.props.rounds[r].prerequisites}</td>
+          <td>
+            <Link to={`/rounds/edit/${r}`}>
+                <span className="fa fa-eye"/>
+            </Link>
+          </td>
+          <td>
+            <Link to={`/rounds/delete/${r}`}>
+                <span className="fa fa-trash"/>
+            </Link>
+          </td>
+        </tr>
+      );
+    }
   }
   return table;
   }

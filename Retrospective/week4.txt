@@ -1,0 +1,5 @@
+
+
+Retrospective
+What went well for us this past week is the planning of the week and fixing of deployment issues. We spent a lot of time in the beginning of the week planning out who was to do what and allowed ample time for questions and any clarity comments. What didn’t go as well for us was the test cases for the code we wrote. We wrote 3 or 4 test cases but put them in different directories and never made any videos of them working. Another thing that hasn’t gone well is the following of guidelines when it comes to GitHub specifics. For example, we need to assign pull requests to each person, make comments on the accepting of a pull request, and link pull requests to milestones or issues. For this week we are going to try to post more questions in the teams chat as we finish up this project so that we all understand where each other are at in the development process and can link work together more fluidly. Lastly we are going to put the finishing touches for the student view and the admin view.
+

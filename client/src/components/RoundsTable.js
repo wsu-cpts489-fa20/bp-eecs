@@ -1,6 +1,6 @@
 import React from 'react';
 import ConfirmDeleteRound from './ConfirmDeleteRound.js';
-import {Link, Switch, Route, useHistory} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import {withRouter} from "react-router";
 
 class RoundsTable extends React.Component {
@@ -26,37 +26,33 @@ class RoundsTable extends React.Component {
   //by the current user and providing buttons to view/edit and delete each round.
   //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
-  let table = [];
-  let tableMode = this.props.tableMode;
-  let matchingLength = tableMode.length - 1;
-  const currentUrl = this.props.history.location.pathname;
-  for (const round of this.props.rounds) {
-    if(round.courseId.slice(0,matchingLength) === tableMode.slice(1,matchingLength + 1)) //allows for filtering of courses
-    //need to add the specific table mode im in and then its done.
-    {
-      console.log("found a cpts class");
-    
-    table.push(
-      <tr key={round._id}>
-        <td>{round.courseId}</td>
-        <td>{round.courseName}</td>
-        <td>{round.description}</td>
-        <td>{round.prerequisites}</td>
-        <td>
-          <Link to={`${currentUrl}/edit/${round._id}`}>
-              <span className="fa fa-eye"/>
-          </Link>
-        </td>
-        <td>
-          <Link to={`${currentUrl}/delete/${round._id}`}>
-              <span className="fa fa-trash"/>
-          </Link>
-        </td>
-      </tr>
-    );
-  }
-  }
-  return table;
+    const table = [];
+    const tableMode = this.props.tableMode;
+    const courseTag = tableMode.slice(1);
+    const currentUrl = this.props.history.location.pathname;
+    for (const round of this.props.rounds) {
+      if (round[courseTag]) {
+        table.push(
+          <tr key={round._id}>
+            <td>{round.courseId}</td>
+            <td>{round.courseName}</td>
+            <td>{round.description}</td>
+            <td>{round.prerequisites}</td>
+            <td>
+              <Link to={`${currentUrl}/edit/${round._id}`}>
+                <span className="fa fa-eye"/>
+              </Link>
+            </td>
+            <td>
+              <Link to={`${currentUrl}/delete/${round._id}`}>
+                <span className="fa fa-trash"/>
+              </Link>
+            </td>
+          </tr>
+        );
+      }
+    }
+    return table;
   }
 
   //render--render the entire rounds table with header, displaying a "No

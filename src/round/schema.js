@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const roundSchema = new mongoose.Schema({
+        cpts: {type: Boolean, required: true},
+        cpte: {type: Boolean, required: true},
+        ee: {type: Boolean, required: true},
+        se: {type: Boolean, required: true},
         courseId: {type: String, required: true},
         courseName: {type: String, required: true},
         description: {type: String, required: true},

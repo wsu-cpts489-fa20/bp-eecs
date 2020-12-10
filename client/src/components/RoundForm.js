@@ -9,6 +9,10 @@ class RoundForm extends React.Component {
             courseName: "",
             description: "",
             prerequisites: "",
+            cpts: false,
+            cpte: false,
+            ee: false,
+            se: false,
             faIcon: "fa fa-save",
             btnLabel: "Save Round Data"
         }
@@ -29,25 +33,7 @@ class RoundForm extends React.Component {
 
     handleChange = (event) => {
         const name = event.target.name;
-        if (name === "seconds") {
-            let newSec = (event.target.value.length < 2 ? "0" +
-                event.target.value : event.target.value);
-            let newSGS = this.computeSGS(this.state.strokes, this.state.minutes,
-                newSec);
-            this.setState({seconds: newSec, SGS: newSGS});
-        } else if (name === "strokes") {
-            let newStrokes = event.target.value;
-            let newSGS = this.computeSGS(newStrokes, this.state.minutes,
-                this.state.seconds);
-            this.setState({strokes: newStrokes, SGS: newSGS});
-        } else if (name === "minutes") {
-            let newMin = event.target.value;
-            let newSGS = this.computeSGS(this.state.strokes, newMin,
-                this.state.seconds);
-            this.setState({minutes: newMin, SGS: newSGS});
-        } else {
-            this.setState({[name]: event.target.value});
-        }
+        this.setState({[name]: event.target.value});
     }
 
 
@@ -68,12 +54,24 @@ class RoundForm extends React.Component {
             courseId: this.state.courseId,
             courseName: this.state.courseName,
             description: this.state.description,
-            prerequisites: this.state.prerequisites
+            prerequisites: this.state.prerequisites,
+            cpts: this.state.cpts,
+            ee: this.state.ee,
+            cpte: this.state.cpte,
+            se: this.state.se
         };
         //call saveRound on 1 second delay to show spinning icon
         setTimeout(this.props.saveRound, 1000, roundData);
 
         event.preventDefault();
+    }
+
+    handleCheckbox = (event) => {
+        const name = event.target.name;
+        const value = event.target.checked;
+        this.setState({
+            [name]: value
+        })
     }
 
 
@@ -85,7 +83,32 @@ class RoundForm extends React.Component {
         return (
             <form className="padded-page" onSubmit={this.handleSubmit}>
                 <center>
-
+                    Majors:
+                    <p></p>
+                    <label>
+                        Computer Science
+                        <input name="cpts" className="form-control checkbox-size" type="checkbox"
+                            value={this.state.cpts} onChange={this.handleCheckbox}/>
+                    </label>
+                    &nbsp;&nbsp;
+                    <label>
+                        Computer Engineering
+                        <input name="cpte" className="form-control checkbox-size" type="checkbox"
+                            value={this.state.cpte} onChange={this.handleCheckbox}/>
+                    </label>
+                    &nbsp;&nbsp;
+                    <label>
+                        Electrical Engineering
+                        <input name="ee" className="form-control checkbox-size" type="checkbox"
+                            value={this.state.ee} onChange={this.handleCheckbox}/>
+                    </label>
+                    &nbsp;&nbsp;
+                    <label>
+                        Software Engineering
+                        <input name="se" className="form-control checkbox-size" type="checkbox"
+                            value={this.state.se} onChange={this.handleCheckbox}/>
+                    </label>
+                    <p></p>
                     <label>
                         Course Id:
                         <input name="courseId" className="form-control form-center" type="text"

@@ -4,23 +4,11 @@ import {withRouter} from 'react-router-dom';
 class RoundForm extends React.Component {
     constructor(props) {
         super(props);
-        //Create date object for today, taking time zone into consideration
-        let today = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
-        //store date as ISO string
-        //If logging a new round, the starting state is a default round with
-        //today's date.
         this.state = {
-            date: today.toISOString().substr(0, 10),
             courseId: "",
             courseName: "",
-            type: "practice",
             description: "",
             prerequisites: "",
-            holes: "18",
-            strokes: 80,
-            minutes: 50,
-            seconds: "00",
-            notes: "",
             faIcon: "fa fa-save",
             btnLabel: "Save Round Data"
         }
@@ -29,7 +17,7 @@ class RoundForm extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         if (id) {
-            const round = this.props.rounds[id];
+            const round = this.props.rounds.find((element) => element._id === id);
             this.setState({
                 ...round,
                 faIcon: "fa fa-edit",
@@ -76,9 +64,12 @@ class RoundForm extends React.Component {
                 "Saving..." : "Updating...")
         });
         //Prepare current round data to be saved
-        let roundData = this.state;
-        delete roundData.faIcon;
-        delete roundData.btnLabel;
+        let roundData = {
+            courseId: this.state.courseId,
+            courseName: this.state.courseName,
+            description: this.state.description,
+            prerequisites: this.state.prerequisites
+        };
         //call saveRound on 1 second delay to show spinning icon
         setTimeout(this.props.saveRound, 1000, roundData);
 

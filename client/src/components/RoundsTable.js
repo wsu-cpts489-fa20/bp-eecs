@@ -19,7 +19,7 @@ class RoundsTable extends React.Component {
   }
 
   closeDeleteRoundsModal = () => {
-    this.props.history.push("/rounds");
+    this.props.history.goBack();
   }
 
   //renderTable -- render an HTML table displaying the rounds logged
@@ -29,25 +29,26 @@ class RoundsTable extends React.Component {
   let table = [];
   let tableMode = this.props.tableMode;
   let matchingLength = tableMode.length - 1;
-  for (let r = 0; r < this.props.rounds.length; ++r) {
-    if(this.props.rounds[r].courseId.slice(0,matchingLength) == tableMode.slice(1,matchingLength + 1)) //allows for filtering of courses
+  const currentUrl = this.props.history.location.pathname;
+  for (const round of this.props.rounds) {
+    if(round.courseId.slice(0,matchingLength) === tableMode.slice(1,matchingLength + 1)) //allows for filtering of courses
     //need to add the specific table mode im in and then its done.
     {
       console.log("found a cpts class");
     
     table.push(
-      <tr key={r}>
-        <td>{this.props.rounds[r].courseId}</td>
-        <td>{this.props.rounds[r].courseName}</td>
-        <td>{this.props.rounds[r].description}</td>
-        <td>{this.props.rounds[r].prerequisites}</td>
+      <tr key={round._id}>
+        <td>{round.courseId}</td>
+        <td>{round.courseName}</td>
+        <td>{round.description}</td>
+        <td>{round.prerequisites}</td>
         <td>
-          <Link to={`/rounds/edit/${r}`}>
+          <Link to={`${currentUrl}/edit/${round._id}`}>
               <span className="fa fa-eye"/>
           </Link>
         </td>
         <td>
-          <Link to={`/rounds/delete/${r}`}>
+          <Link to={`${currentUrl}/delete/${round._id}`}>
               <span className="fa fa-trash"/>
           </Link>
         </td>

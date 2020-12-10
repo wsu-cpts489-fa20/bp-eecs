@@ -4,13 +4,7 @@ import {withRouter} from 'react-router-dom';
 class RoundForm extends React.Component {
     constructor(props) {
         super(props);
-        //Create date object for today, taking time zone into consideration
-        let today = new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000);
-        //store date as ISO string
-        //If logging a new round, the starting state is a default round with
-        //today's date.
         this.state = {
-            date: today.toISOString().substr(0, 10),
             courseId: "",
             courseName: "",
             courseDate: "Fall",
@@ -30,7 +24,7 @@ class RoundForm extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         if (id) {
-            const round = this.props.rounds[id];
+            const round = this.props.rounds.find((element) => element._id === id);
             this.setState({
                 ...round,
                 faIcon: "fa fa-edit",
@@ -59,9 +53,16 @@ class RoundForm extends React.Component {
                 "Saving..." : "Updating...")
         });
         //Prepare current round data to be saved
-        let roundData = this.state;
-        delete roundData.faIcon;
-        delete roundData.btnLabel;
+        let roundData = {
+            courseId: this.state.courseId,
+            courseName: this.state.courseName,
+            description: this.state.description,
+            prerequisites: this.state.prerequisites,
+            cpts: this.state.cpts,
+            ee: this.state.ee,
+            cpte: this.state.cpte,
+            se: this.state.se
+        };
         //call saveRound on 1 second delay to show spinning icon
         setTimeout(this.props.saveRound, 1000, roundData);
 
@@ -116,7 +117,7 @@ class RoundForm extends React.Component {
                             value={this.state.ee} onChange={this.handleCheckbox}/>
                     </label>
                     &nbsp;&nbsp;
-                    <label>     
+                    <label>
                         Software Engineering
                         <input name="se" className="form-control checkbox-size" type="checkbox"
                             value={this.state.se} onChange={this.handleCheckbox}/>

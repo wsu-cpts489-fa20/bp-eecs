@@ -1,6 +1,6 @@
 import React from 'react';
 import ConfirmDeleteRound from './ConfirmDeleteRound.js';
-import {Link, Switch, Route, useHistory} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import {withRouter} from "react-router";
 
 class RoundsTable extends React.Component {
@@ -19,41 +19,40 @@ class RoundsTable extends React.Component {
   }
 
   closeDeleteRoundsModal = () => {
-    this.props.history.push("/rounds");
+    this.props.history.goBack();
   }
 
   //renderTable -- render an HTML table displaying the rounds logged
   //by the current user and providing buttons to view/edit and delete each round.
   //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
-  const table = [];
-  const tableMode = this.props.tableMode;
-  const courseTag = tableMode.slice(1);
-  const matchingLength = tableMode.length - 1;
-  for (let r = 0; r < this.props.rounds.length; ++r) {
-    // Filters courses based on associated table mode
-    if (this.props.rounds[r][courseTag]) {
-      table.push(
-        <tr key={r}>
-          <td>{this.props.rounds[r].courseId}</td>
-          <td>{this.props.rounds[r].courseName}</td>
-          <td>{this.props.rounds[r].description}</td>
-          <td>{this.props.rounds[r].prerequisites}</td>
-          <td>
-            <Link to={`/rounds/edit/${r}`}>
+    const table = [];
+    const tableMode = this.props.tableMode;
+    const courseTag = tableMode.slice(1);
+    const currentUrl = this.props.history.location.pathname;
+    for (const round of this.props.rounds) {
+      if (round[courseTag]) {
+        table.push(
+          <tr key={round._id}>
+            <td>{round.courseId}</td>
+            <td>{round.courseName}</td>
+            <td>{round.description}</td>
+            <td>{round.prerequisites}</td>
+            <td>
+              <Link to={`${currentUrl}/edit/${round._id}`}>
                 <span className="fa fa-eye"/>
-            </Link>
-          </td>
-          <td>
-            <Link to={`/rounds/delete/${r}`}>
+              </Link>
+            </td>
+            <td>
+              <Link to={`${currentUrl}/delete/${round._id}`}>
                 <span className="fa fa-trash"/>
-            </Link>
-          </td>
-        </tr>
-      );
+              </Link>
+            </td>
+          </tr>
+        );
+      }
     }
-  }
-  return table;
+    return table;
   }
 
   //render--render the entire rounds table with header, displaying a "No

@@ -6,7 +6,8 @@ import React from 'react';
 import RoundsTable from './RoundsTable.js';
 import RoundForm from './RoundForm.js';
 import FloatingButton from './FloatingButton.js';
-import {Link, Route, Switch, useRouteMatch, useHistory, withRouter} from "react-router-dom";
+import {Link, Route, Switch, withRouter} from "react-router-dom";
+import ConfirmDeleteRound from "./ConfirmDeleteRound";
 
 class Rounds extends React.Component {
 
@@ -47,10 +48,8 @@ class Rounds extends React.Component {
 
     //editRound -- Given an object newData containing updated data on an
     //existing round, update the current user's round in the database.
-    editRound = async (newData) => {
-        const match = useRouteMatch(`${this.props.match.path}/edit/:id`)
-        const editId = match.params.id
-        const url = `/api/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[editId]._id}`;
+    editRound = async (newData, editId) => {
+        const url = `/api/rounds/${this.props.userObj.id}/${editId}`;
         const res = await fetch(url, {
             headers: {
                 'Accept': 'application/json',
@@ -71,13 +70,8 @@ class Rounds extends React.Component {
 
     //deleteRound -- Delete the current user's round uniquely identified by
     //this.state.deleteId, delete from the database, and reset deleteId to empty.
-    deleteRound = async () => {
-        const match = useRouteMatch(`${this.props.match.path}/delete/:id`);
-        if (!match) {
-            return;
-        }
-        const deleteId = match.params.id
-        const url = `/api/rounds/${this.props.userObj.id}/${this.props.userObj.rounds[deleteId]._id}`;
+    deleteRound = async (deleteId) => {
+        const url = `/api/rounds/${this.props.userObj.id}/${deleteId}`;
         const res = await fetch(url, {method: 'DELETE', headers: {Accept: 'application/json'}});
         const msg = await res.text();
         if (res.status !== 200) {
@@ -93,6 +87,10 @@ class Rounds extends React.Component {
         this.setState({errorMsg: ""});
     }
 
+    closeConfirmDeleteRoundModal = () => {
+        this.props.history.push(this.props.match.path)
+    }
+
     //render -- Conditionally render the Rounds mode page as either the rounds
     //table, the rounds form set to obtain a new round, or the rounds form set
     //to edit an existing round.
@@ -103,12 +101,22 @@ class Rounds extends React.Component {
                     <RoundForm
                         saveRound={this.addRound}/>
                 </Route>
-                <Route path={`${this.props.match.path}/edit/:id`}>
-                    <RoundForm
-                        rounds={this.props.userObj.rounds}
-                        saveRound={this.editRound}/>
-                </Route>
+                <Route path={`${this.props.match.path}/edit/:id`}
+                       render={(routeProps) =>
+                           <RoundForm
+                               rounds={this.props.userObj.rounds}
+                               saveRound={(roundData) => this.editRound(roundData, routeProps.match.params.id)}/>
+                       }/>
                 <Route path={`${this.props.match.path}`}>
+                    <Switch>
+                        <Route path={`${this.props.match.path}/delete/:id`}
+                               render={(routeProps) =>
+                                   <ConfirmDeleteRound
+                                       close={this.closeConfirmDeleteRoundModal}
+                                       deleteRound={() => this.deleteRound(routeProps.match.params.id)}
+                                   />}
+                        />
+                    </Switch>
                     {this.state.errorMsg !== ""
                         ? <div className="status-msg">
                             <span>{this.state.errorMsg}</span>
@@ -121,7 +129,7 @@ class Rounds extends React.Component {
                         rounds={this.props.userObj.rounds}
                         deleteRound={this.deleteRound}
                         menuOpen={this.props.menuOpen}
-                        tableMode = {this.props.match.path}/>
+                        tableMode={this.props.match.path}/>
                     <Link to={`${this.props.match.url}/add`}>
                         <FloatingButton
                             menuOpen={this.props.menuOpen}

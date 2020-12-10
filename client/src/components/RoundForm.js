@@ -10,10 +10,10 @@ class RoundForm extends React.Component {
         //If logging a new round, the starting state is a default round with
         //today's date.
         this.state = {
-            courseDate: "Fall",
             date: today.toISOString().substr(0, 10),
             courseId: "",
             courseName: "",
+            courseDate: "Fall",
             type: "practice",
             description: "",
             prerequisites: "",

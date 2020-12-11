@@ -26,7 +26,6 @@ class App extends React.Component {
             showAboutDialog: false
         };
     }
-
     //componentDidMount
     componentDidMount() {
         if (!this.state.authenticated) {
@@ -165,6 +164,8 @@ class App extends React.Component {
                                         userObj={this.state.userObj}
                                         refreshOnUpdate={this.refreshOnUpdate}
                                         menuOpen={this.state.menuOpen}
+                                        modes={Object.values(Majors)}
+
                                     />
                                     : <StudentView  
                                         userObj={this.state.userObj}

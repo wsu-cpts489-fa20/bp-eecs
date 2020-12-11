@@ -129,7 +129,10 @@ class Rounds extends React.Component {
                         rounds={this.props.userObj.rounds}
                         deleteRound={this.deleteRound}
                         menuOpen={this.props.menuOpen}
-                        tableMode={this.props.match.path}/>
+                        tableMode={this.props.match.path}
+                        modes={this.props.modes}
+                        
+                        />
                     <Link to={`${this.props.match.url}/add`}>
                         <FloatingButton
                             menuOpen={this.props.menuOpen}

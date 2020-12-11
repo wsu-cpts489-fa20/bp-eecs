@@ -23,8 +23,7 @@ class ModeBar extends React.Component {
                 <Route path="/login" />
                 <Route path="/">
                     <div className={"modebar" + (this.props.menuOpen ? " ignore-click" : "")}>
-                        {this.props.admin ? buttons : null}       
-                        {this.props.student ? buttons : null}   
+                        {this.props.admin ? buttons : null}
                     </div>
                 </Route>
             </Switch>

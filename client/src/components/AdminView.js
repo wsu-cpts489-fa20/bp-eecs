@@ -2,17 +2,11 @@ import React from "react";
 import {Route, Switch} from "react-router-dom";
 import Majors from "../Majors";
 import Rounds from "./Rounds";
-import Semesters from "../Semesters"
-import ModeBar from './ModeBar.js';
+
 class AdminView extends React.Component {
     render() {
         return (
-            <div>
-             <ModeBar
-                menuOpen={this.props.menuOpen}
-                modes={Object.values(Majors)}
-             />
-             <Switch>
+            <Switch>
                 {Object.values(Majors).map((major) =>
                     <Route path={major.path}>
                         <Rounds
@@ -22,9 +16,8 @@ class AdminView extends React.Component {
                             modes={this.props.modes}
                         />
                     </Route>
-                 )}
-             </Switch>
-            </div>
+                )}
+            </Switch>
         )
     }
 }

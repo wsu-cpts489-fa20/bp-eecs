@@ -54,6 +54,7 @@ class RoundForm extends React.Component {
         });
         //Prepare current round data to be saved
         let roundData = {
+            courseTime: this.state.courseDate,
             courseId: this.state.courseId,
             courseName: this.state.courseName,
             description: this.state.description,
@@ -124,7 +125,7 @@ class RoundForm extends React.Component {
                     </label>
                     <p></p>
                     <label style={{textAlign:"left"}}>Select When the Course is Offered:
-                        <select name="courseDate" value={this.state.courseDate} 
+                        <select name="courseDate" id="timeInput" value={this.state.courseDate} 
                         className="form-control form-center" onChange={this.handleTime}>
                         <option value="Fall">Fall</option>
                         <option value="Spring">Spring</option>

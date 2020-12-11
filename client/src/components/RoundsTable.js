@@ -7,7 +7,10 @@ class RoundsTable extends React.Component {
   //passed tableMode in which holds the table mode
   constructor(props) {
     super(props);
-    this.state = {showConfirmDelete: false};
+    this.state = 
+    {showConfirmDelete: false,
+      major: "Computer Science"
+    };
   }
 
   //deleteRound -- Triggered when the user clicks on the "Yes, Delete"
@@ -22,14 +25,53 @@ class RoundsTable extends React.Component {
     this.props.history.goBack();
   }
 
+  renderTitle = () =>
+  {
+    const tableMode = this.props.tableMode;
+    //console.log("tableMode: " + tableMode);
+    const courseTag = tableMode.slice(1);
+    //console.log("courseTag: " + courseTag);
+
+    var major = this.state.major;
+
+    if(courseTag=="cpts")
+    {
+      //this.setState({major: "Computer Science"});
+      major = "Computer Science"
+    }
+    else if(courseTag=="ee")
+    {
+      //this.setState({major: "Electrical Engineering"});
+      major = "Electrical Engineering"
+    }
+    else if(courseTag=="cpte")
+    {
+      //this.setState({major: "Computer Engineering"});
+      major = "Computer Engineering"
+    }
+    else if(courseTag=="se")
+    {
+      //this.setState({major: "Software Engineering"});
+      major = "Software Engineering"
+    }
+    //return this.state.major;
+    return major;
+  }
+
   //renderTable -- render an HTML table displaying the rounds logged
   //by the current user and providing buttons to view/edit and delete each round.
   //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
     const table = [];
     const tableMode = this.props.tableMode;
+    console.log("tableMode: " + tableMode);
     const courseTag = tableMode.slice(1);
+    console.log("courseTag: " + courseTag);
     const currentUrl = this.props.history.location.pathname;
+    console.log("currentUrl: " + currentUrl);
+    console.log("RoundsTable.js: this.props.modes="+this.props.modes);
+
+
     for (const round of this.props.rounds) {
       if (round[courseTag]) {
         table.push(
@@ -60,7 +102,7 @@ class RoundsTable extends React.Component {
   render() {
     return(
     <div className="padded-page">
-      <h1></h1>
+      <center><h1>{this.renderTitle()}</h1></center>
       <table className="table table-hover" id="roundTable">
         <thead className="thead-light">
         <tr>

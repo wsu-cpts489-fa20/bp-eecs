@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, Switch, Route, useHistory} from "react-router-dom";
+import {withRouter} from "react-router";
 
 class StudentHomePage extends React.Component {
     constructor(props){
@@ -67,4 +68,4 @@ class StudentHomePage extends React.Component {
 }
 
 
-export default StudentHomePage;
+export default withRouter(StudentHomePage);

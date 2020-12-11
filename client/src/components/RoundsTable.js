@@ -28,8 +28,16 @@ class RoundsTable extends React.Component {
   renderTable = () => {
     const table = [];
     const tableMode = this.props.tableMode;
+    console.log("tableMode: " + tableMode);
+
     const courseTag = tableMode.slice(1);
+    console.log("courseTag: " + courseTag);
+
     const currentUrl = this.props.history.location.pathname;
+    console.log("currentUrl: " + currentUrl);
+
+
+
     for (const round of this.props.rounds) {
       if (round[courseTag]) {
         table.push(

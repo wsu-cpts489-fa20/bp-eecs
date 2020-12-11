@@ -415,3 +415,20 @@ text-align: center;
   width: 24px;
   height: 24px;
 }
+
+
+/* student page styling */
+.studentHeader{
+}
+.studentTitle{
+  margin-left: 33%;
+} .studentDropdown {
+  float:left; /* add this */
+  margin-left: 2%;
+
+}
+.studentCourseTable
+{
+  margin-left: 2%;
+  margin-right: 2%;
+}

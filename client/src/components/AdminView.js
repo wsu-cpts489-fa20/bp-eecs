@@ -8,6 +8,7 @@ class AdminView extends React.Component {
         return (
             <Switch>
                 {Object.values(Majors).map((major) =>
+                    
                     <Route path={major.path}>
                         <Rounds
                             userObj={this.props.userObj}
@@ -15,7 +16,17 @@ class AdminView extends React.Component {
                             menuOpen={this.props.menuOpen}
                         />
                     </Route>
+                    
                 )}
+                <Route> 
+                    <center>
+                        <div>
+                        Welcome to the admin page. Click a mode below to view the classes you have on file and 
+                        from there you can also add classes! 
+                        </div>
+                    </center>
+                </Route>
+
             </Switch>
         )
     }

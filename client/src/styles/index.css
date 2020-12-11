@@ -432,3 +432,38 @@ text-align: center;
   margin-left: 2%;
   margin-right: 2%;
 }
+
+
+.graph1 {
+  height: 80%;
+  width: 90%;
+}
+
+
+.graphContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.graph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%; 
+  margin: 1em; 
+  padding: 1em;
+  /* border: 1px solid black; */
+}
+
+.graph img {
+  margin: 0.5em 0;
+} 
+
+.fullTitle{
+  font-size: large;
+}
+
+.exTitle{
+  font-size: large;
+}

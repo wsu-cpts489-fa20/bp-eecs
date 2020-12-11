@@ -19,6 +19,7 @@ class AdminView extends React.Component {
                             userObj={this.props.userObj}
                             refreshOnUpdate={this.props.refreshOnUpdate}
                             menuOpen={this.props.menuOpen}
+                            modes={this.props.modes}
                         />
                     </Route>
                  )}

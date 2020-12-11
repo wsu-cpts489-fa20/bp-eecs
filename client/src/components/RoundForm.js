@@ -7,12 +7,15 @@ class RoundForm extends React.Component {
         this.state = {
             courseId: "",
             courseName: "",
+            courseDate: "Fall",
+            type: "practice",
             description: "",
             prerequisites: "",
             cpts: false,
             cpte: false,
             ee: false,
             se: false,
+            courseTime: "Fall",
             faIcon: "fa fa-save",
             btnLabel: "Save Round Data"
         }
@@ -51,6 +54,7 @@ class RoundForm extends React.Component {
         });
         //Prepare current round data to be saved
         let roundData = {
+            courseTime: this.state.courseDate,
             courseId: this.state.courseId,
             courseName: this.state.courseName,
             description: this.state.description,
@@ -71,6 +75,17 @@ class RoundForm extends React.Component {
         const value = event.target.checked;
         this.setState({
             [name]: value
+        })
+    }
+    handleTime = (event) =>
+    {
+        const time = event.target.value;
+        const updateDate = event.target.value;
+
+        this.setState({
+            courseTime: time,
+            courseDate: updateDate
+
         })
     }
 
@@ -107,6 +122,15 @@ class RoundForm extends React.Component {
                         Software Engineering
                         <input name="se" className="form-control checkbox-size" type="checkbox"
                             value={this.state.se} onChange={this.handleCheckbox}/>
+                    </label>
+                    <p></p>
+                    <label style={{textAlign:"left"}}>Select When the Course is Offered:
+                        <select name="courseDate" id="timeInput" value={this.state.courseDate} 
+                        className="form-control form-center" onChange={this.handleTime}>
+                        <option value="Fall">Fall</option>
+                        <option value="Spring">Spring</option>
+                        <option value="Summer">Summer</option>
+                        </select> 
                     </label>
                     <p></p>
                     <label>

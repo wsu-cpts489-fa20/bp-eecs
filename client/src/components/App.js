@@ -26,7 +26,6 @@ class App extends React.Component {
             showAboutDialog: false
         };
     }
-
     //componentDidMount
     componentDidMount() {
         if (!this.state.authenticated) {
@@ -164,11 +163,12 @@ class App extends React.Component {
                                         modes={Object.values(Majors)}
                                         admin={this.state.userObj.admin}
                                     />
-                                    : <StudentView 
+                                    : <StudentView  
                                         userObj={this.state.userObj}
+                                        refreshOnUpdate={this.refreshOnUpdate}
                                         menuOpen={this.state.menuOpen}
                                         admin={this.state.userObj.student}
-                                        />
+                                    />
                                 }
                             </>
                             : <Redirect to="/login" />

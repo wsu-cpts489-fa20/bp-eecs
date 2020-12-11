@@ -6,7 +6,7 @@ class ModeBar extends React.Component {
 
     makeModeButton = (mode) => {
         return (
-            <NavLink to={mode.path} activeClassName="item-selected">
+            <NavLink to={mode.path} activeClassName="item-selected" id={mode.id}>
                 <span className="modebar-text">
                     {mode.prettyName}
                 </span>

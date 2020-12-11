@@ -8,23 +8,14 @@ class StudentHomePage extends React.Component {
     this.state = { major: "Computer Science" };
   }
 
-
-
   //renderTable -- render an HTML table displaying the rounds logged
   //by the current user and providing buttons to view/edit and delete each round.
   //render each table based on tableMode prop which contains "/cpte"
   renderTable = () => {
     const table = [];
-    //const tableMode = this.props.tableMode;
     const tableMode = "/ee";
-
-    //const courseTag = tableMode.slice(1);
-    //const courseTag = "ee";
     const courseTag = this.props.studentMajor;
-    console.log("StudentTable.js: majorPrefix="+this.props.studentMajor);
-
-
-    //const currentUrl = this.props.history.location.pathname;
+    console.log("StudentTable.js: majorPrefix=" + this.props.studentMajor);
     const currentUrl = "/ee";
 
     for (const round of this.props.rounds) {
@@ -35,16 +26,16 @@ class StudentHomePage extends React.Component {
             <td>{round.courseName}</td>
             <td>{round.description}</td>
             <td>{round.prerequisites}</td>
-            {/* <td>
-              <Link to={`${currentUrl}/edit/${round._id}`}>
-                <span className="fa fa-eye"/>
-              </Link>
+            <td>
+              <button>
+                <span className="fa fa-plus" />
+              </button>
             </td>
             <td>
-              <Link to={`${currentUrl}/delete/${round._id}`}>
-                <span className="fa fa-trash"/>
-              </Link>
-            </td> */}
+              <button>
+                <span className="fa fa-star" />
+              </button>
+            </td>
           </tr>
         );
       }
@@ -55,12 +46,6 @@ class StudentHomePage extends React.Component {
   render() {
     return (
       <div id="HomePage" className="padded-page">
-        {/* <center>
-            <h1 >Welcome </h1>
-            <h2> Student Home Page</h2>
-            </center> */}
-
-        {/* <p></p> */}
         <table className="table table-hover">
           <thead className="thead-light">
             <tr>
@@ -68,6 +53,8 @@ class StudentHomePage extends React.Component {
               <th>Name</th>
               <th>Description</th>
               <th>Prerequisites</th>
+              <th>Add to Schedule</th>
+              <th>Favorite</th>
             </tr>
           </thead>
 
@@ -83,11 +70,6 @@ class StudentHomePage extends React.Component {
             )}
           </tbody>
         </table>
-
-        {/* <p></p>
-            <h3 style={{textAlign:"left"}}>Class Dependeny Graph</h3>
-            <p></p>
-            <h4>Future Classes List</h4> */}
       </div>
     );
   }

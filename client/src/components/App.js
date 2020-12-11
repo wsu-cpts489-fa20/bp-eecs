@@ -152,26 +152,22 @@ class App extends React.Component {
                         }
                     </Route>
                     <Route>
-                        {this.state.authenticated
+                    {this.state.authenticated
                             ? <>
-                                <ModeBar
-                                    menuOpen={this.state.menuOpen}
-                                    modes={Object.values(Majors)}
-                                    admin={this.state.userObj.admin}
-                                />
                                 {this.state.userObj.admin
-                                    ? <AdminView
+                                    ? 
+                                    <AdminView
                                         userObj={this.state.userObj}
                                         refreshOnUpdate={this.refreshOnUpdate}
                                         menuOpen={this.state.menuOpen}
                                         modes={Object.values(Majors)}
-
+                                        admin={this.state.userObj.admin}
                                     />
                                     : <StudentView  
                                         userObj={this.state.userObj}
                                         refreshOnUpdate={this.refreshOnUpdate}
                                         menuOpen={this.state.menuOpen}
-                                    
+                                        admin={this.state.userObj.student}
                                     />
                                 }
                             </>

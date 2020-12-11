@@ -3,6 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import Majors from "../Majors";
 import Rounds from "./Rounds";
 import Semesters from "../Semesters"
+import ModeBar from './ModeBar.js';
 class AdminView extends React.Component {
     render() {
         return (

@@ -167,7 +167,7 @@ class App extends React.Component {
                                     : <StudentView 
                                         userObj={this.state.userObj}
                                         menuOpen={this.state.menuOpen}
-                                        admin={this.state.userObj.admin}
+                                        admin={this.state.userObj.student}
                                         />
                                 }
                             </>

@@ -2,22 +2,18 @@ import React from "react";
 import { Link, Switch, Route, useHistory, withRouter } from "react-router-dom";
 // import {withRouter} from "react-router";
 
-class StudentHomePage extends React.Component {
+// The student table component
+class StudentTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = { major: "Computer Science" };
   }
 
-  //renderTable -- render an HTML table displaying the rounds logged
-  //by the current user and providing buttons to view/edit and delete each round.
-  //render each table based on tableMode prop which contains "/cpte"
+  //renderTable -- render an HTML table displaying available courses for a given major
   renderTable = () => {
     const table = [];
-    const tableMode = "/ee";
     const courseTag = this.props.studentMajor;
     console.log("StudentTable.js: majorPrefix=" + this.props.studentMajor);
-    const currentUrl = "/ee";
-
     for (const round of this.props.rounds) {
       if (round[courseTag]) {
         table.push(
@@ -47,6 +43,8 @@ class StudentHomePage extends React.Component {
     return (
       <div id="HomePage" className="padded-page">
         <table className="table table-hover">
+
+          {/* header row for courses table */}
           <thead className="thead-light">
             <tr>
               <th>Course ID</th>
@@ -57,22 +55,21 @@ class StudentHomePage extends React.Component {
               <th>Favorite</th>
             </tr>
           </thead>
-
+          
+          {/* body for courses table: contains available courses */}
           <tbody>
             {Object.keys(this.props.rounds).length === 0 ? (
               <tr>
                 <td colSpan="5" style={{ fontStyle: "italic" }}>
                   No courses logged
                 </td>
-              </tr>
-            ) : (
-              this.renderTable()
-            )}
+              </tr>) 
+                // calls renderTable() to populate the table body 
+              : (this.renderTable())} 
           </tbody>
         </table>
       </div>
     );
   }
 }
-
-export default withRouter(StudentHomePage);
+export default withRouter(StudentTable);

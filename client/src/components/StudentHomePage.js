@@ -1,7 +1,3 @@
-//Rounds -- A parent component for the app's "rounds" mode.
-//Manages the rounds data for the current user and conditionally renders the
-//appropriate rounds mode page based on App's mode, which is passed in as a prop.
-
 import React from "react";
 import RoundsTable from "./RoundsTable.js";
 import RoundForm from "./RoundForm.js";
@@ -12,11 +8,10 @@ import StudentTable from "./StudentTable.js";
 import fullGraph from "../images/full_graph.png";
 import exGraph from "../images/example_graph.png";
 
+// Student home (landing) page where users will be taken after login
 class StudentHomePage extends React.Component {
-  //Initialize a Rounds object based on local storage
   constructor(props) {
     super(props);
-
     this.state = {
       errorMsg: "",
       roundFormRedirect: null,
@@ -26,29 +21,7 @@ class StudentHomePage extends React.Component {
     };
   }
 
-  //   handleChange = async (event) => {
-  //       this.setState({major: event.target.value});
-  //       const url = '/rounds/' + this.props.userObj.id;
-  //       const res = await fetch(url, {
-  //           headers: {
-  //               'Accept': 'application/json',
-  //               'Content-Type': 'application/json'
-  //           },
-  //           method: 'POST',
-  //           body: JSON.stringify(this.state.major)
-  //       });
-  //       const msg = await res.text();
-  //       if (res.status !== 200) {
-  //           //console.log(event.target.value);
-  //           this.setState({errorMsg: msg});
-  //       } else {
-  //           this.setState({errorMsg: ""});
-  //           //console.log(event.target.value);
-  //           await this.props.refreshOnUpdate();
-  //       }
-  //       this.props.history.goBack()
-  //   }
-
+  // handles changes to the student major drop down selection
   handleChange = async (event) => {
     this.setState({ major: event.target.value });
     if (event.target.value == "Computer Science") {
@@ -66,22 +39,18 @@ class StudentHomePage extends React.Component {
     this.props.history.goBack();
   };
 
+  // close the error message when there is a navigation error
   closeErrorMsg = () => {
     this.setState({ errorMsg: "" });
   };
 
-  closeConfirmDeleteRoundModal = () => {
-    this.props.history.push(this.props.match.path);
-  };
-
-  //render -- Conditionally render the Rounds mode page as either the rounds
-  //table, the rounds form set to obtain a new round, or the rounds form set
-  //to edit an existing round.
+  //render -- Conditionally render the Student Home Page when different majors are selected
   render() {
     return (
       <div className="studentHeader">
         <p></p>
 
+        {/* dropwdown menu of majors */}
         <div className="studentDropdown">
           <label style={{ textAlign: "left" }}>
             Select your major:
@@ -89,17 +58,16 @@ class StudentHomePage extends React.Component {
               name="major"
               value={this.state.major}
               className="form-control form-center"
-              onChange={this.handleChange}
-            >
+              onChange={this.handleChange}>
               <option value="Computer Science">Computer Science</option>
               <option value="Computer Engineering">Computer Engineering</option>
-              <option value="Electrical Engineering">
-                Electrical Engineering
-              </option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
               <option value="Software Engineering">Software Engineering</option>
             </select>
           </label>
         </div>
+
+        {/* title of home page */}
         <div className="studentTitle">
           <h1>
             {this.state.major} Courses - {this.state.term}{" "}
@@ -115,6 +83,8 @@ class StudentHomePage extends React.Component {
                 </button>
               </div>
             ) : null}
+
+            {/* table of courses for a given major */}
             <StudentTable
               rounds={this.props.userObj.rounds}
               deleteRound={this.deleteRound}
@@ -123,14 +93,17 @@ class StudentHomePage extends React.Component {
               studentMajor={this.state.majorPrefix}
             />
 
+            {/* layout of dependency graphs */}
             <div className="graphContainer">
               <div className="graph">
                 <img className="graph1" src={fullGraph} />
-                <h1 className="fullTitle" >Full dependency graph layout</h1>
+                <h1 className="fullTitle">Full dependency graph layout</h1>
               </div>
               <div className="graph">
                 <img className="graph2" src={exGraph} />
-                <h1 className="exTitle">Example dependency graph with scheduled courses</h1>
+                <h1 className="exTitle">
+                  Example dependency graph with scheduled courses
+                </h1>
               </div>
             </div>
             <p></p>
